@@ -3,14 +3,13 @@
 	<head id="head">
 		<title>Template</title>
 		<#include "../stubs/header.ftl" />
-		<link rel="stylesheet" href="/static/css/thomasSignature/jquery.signaturepad.css">
 	</head>
 	<body id="body">
-
+		<#include "../stubs/navbar.ftl" />
 
 		<!-- content -->
 
-		<div id="content" class="col-sm-12" >
+		<!--<div id="content" class="col-sm-12" >
 			<div id="signature_container">
 				<div id="tools">
 					<a href="#" class="btn btn-primary" id="accept_button" data-role="button" data-inline="true" data-theme="b">Accept</a>
@@ -38,28 +37,31 @@
 					</div>
 				</form>
 			</div>
-		</div>
+		</div>-->
 		<!-- content -->
-		<div id="newDiv" class="" style="border:3px dashed green;" hidden>
-		</div>
 
 		<div id="" class="container" >
-			<div class="col-sm-12">
-				<button class="btn btn-md btn-primary ">accept</button>
-				<button class="btn btn-md btn-default ">Clear</button>
+			<div class="row">
+				<div class="col-xs-12">
+					<p>
+						<button class="btn btn-md btn-primary ">accept</button>
+						<button class="btn btn-md btn-default ">Clear</button>
+					</p>
+				</div>
 			</div>
-
+			<div class="row">
+				<div id="signature" class="col-xs-12">
+				</div>
+			</div>
 		</div>
 
 		<#include "../stubs/scripts.ftl"/>
-		<script src="/static/js/jSignature.min.js"></script>
-		<script src="/static/js/plugins/signhere/jSignature.SignHere.js"></script>
-		<script src="/static/js/init.js"></script>
 
-		<script src="/static/js/thomasSignature/jquery.signaturepad.js"></script>
-		<script src="/static/js/thomasSignature/json2.min.js"></script>
+		<script src="/static/js/jSignature/jSignature.min.js"></script>
 		<script>
-			$('.sigPad').signaturePad()
+	    	$(document).ready(function() {
+	    	    $("#signature").jSignature()
+	    	})
 		</script>
 	</body>
 </html>
