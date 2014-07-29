@@ -1,5 +1,6 @@
 package com.cagnosolutions.nei.shipping.slip
 
+import com.cagnosolutions.nei.shipping.sig.Sig
 import com.cagnosolutions.nei.shipping.user.User
 
 import javax.persistence.Entity
@@ -22,6 +23,8 @@ class Slip {
     @OneToOne
     User customer
 
-    String signedBy, signature
+    @OneToOne
+    Sig signature
 
+    String job = UUID.randomUUID().toString()
 }

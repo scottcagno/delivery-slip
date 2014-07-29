@@ -51,6 +51,9 @@ class UserData {
         repo.delete id
     }
 
+    boolean exists(Long userId) {
+        repo.exists userId
+    }
 }
 
 @Repository

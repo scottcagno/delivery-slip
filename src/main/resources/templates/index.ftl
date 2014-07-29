@@ -63,5 +63,6 @@
 
         <#include "stubs/footer.ftl">
 
+		<#include "stubs/scripts.ftl">
 	</body>
 </html>
