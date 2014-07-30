@@ -11,7 +11,7 @@
         <!-- content -->
         <div class="container">
             <span class="pull-left col-sm-8">
-                <img class="img-responsive logo" src="/static/img/logo.png"/>
+                <br/><img class="img-responsive logo" src="/static/img/logo.png"/><br/><br/>
             </span>
         </div>
         <div class="container">

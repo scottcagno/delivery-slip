@@ -13,7 +13,6 @@
             <div class="container">
                 <span class="pull-left col-sm-8">
                     <img class="img-responsive logo" src="/static/img/logo.png"/>
-                    <p class="text-muted">Custom engineered software solutions built specifically for you.</p>
                 </span>
                 <span class="pull-left col-xs-4">
                     ${(error)!}
