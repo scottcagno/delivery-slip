@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
-<head id="head">
-    <title>Template</title>
-    <#include "header.ftl">
-</head>
+	<head id="head">
+	    <title>Template</title>
+	    <#include "header.ftl"/>
+	</head>
     <body id="body">
 
-        <#include "navbar.ftl">
+        <#include "navbar.ftl"/>
 
         <!-- content -->
         <div class="jumbotron">
@@ -25,9 +25,9 @@
         </div>
         <!-- content -->
 
-        <#include "footer.ftl">
+        <#include "footer.ftl"/>
 
-        <#include "scripts.ftl">
+        <#include "scripts.ftl"/>
 
     </body>
 </html>
