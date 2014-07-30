@@ -36,7 +36,7 @@ class SigController {
 
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
 	String selectSlip(Model model, @PathVariable Long id) {
-		model.addAllAttributes(["sig", sigData.findOne(id), "slips", slipData.findAll()])
+		model.addAllAttributes([sig: sigData.findOne(id), slips: slipData.findAll()])
 		"sig/sigSlip"
 	}
 }
