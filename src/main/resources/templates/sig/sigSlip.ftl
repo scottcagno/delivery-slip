@@ -21,10 +21,11 @@
 							</span>
 							<input type="text" id="signedBy" name="signedBy" class="form-control" required="true" />
 							<span class="input-group-btn">
-								<button class="btn btn-md btn-primary" type="submit">Complete</button>
+								<button id="done" class="btn btn-md btn-primary" type="submit">Complete</button>
 							</span>
 						</div>
 						<input type="hidden"  name="signature" value="${sig.signature}">
+						<input type="hidden"  id="slipIds" name="slipIds">
 						<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 					</form>
 					<br>
@@ -37,7 +38,7 @@
 										${slip.customer.name}
 									</p>
 								</span>
-								<button id="addSlip" class="btn-default btn">Add</button>
+								<button id="addSlip" data-added="0" data-slipId="${slip.id}" class="btn-default btn">Add</button>
 							</span>
 						</#list>
 					</div>
@@ -49,6 +50,32 @@
 		<#include "../stubs/footer.ftl"/>
 
 		<#include "../stubs/scripts.ftl"/>
+		<script src="/static/js/custom.js"></script>
+		<script>
+			var slipId = []
+			$(document).ready(function() {
+				$('button[id="addSlip"]').click(function() {
+					if (this.getAttribute('data-added') == '0') {
+						slipId.push(this.getAttribute('data-slipId'));
+						this.innerText = "Added";
+						this.setAttribute('class', 'btn-primary btn');
+						this.setAttribute('data-added', '1');
+						alert(slipId);
+					} else {
+						slipId = removeValue(slipId, this.getAttribute('data-slipId'));
+						this.innerText = "Add";
+						this.setAttribute('class', 'btn-default btn');
+						this.setAttribute('data-added', '0');
+						alert(slipId);
+					}
+				});
 
+				$('button[id="done"]').click(function(e){
+					e.preventDefault();
+					$('input[id="slipIds"]').val(slipId);
+					alert($('input[id="slipIds"]').val());
+				});
+			});
+		</script>
 	</body>
 </html>
