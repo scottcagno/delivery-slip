@@ -3,6 +3,11 @@ body {
     background-color: #fff;
 }
 
+.logo {
+    padding-top: 15px;
+    padding-bottom: 30px;
+}
+
 .footer {
     margin-top: 25px;
 }

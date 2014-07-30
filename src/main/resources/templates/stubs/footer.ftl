@@ -1,8 +1,8 @@
 <div class="text-center footer">
     <p class="text-muted">
         <small>
-           Copyright Cagno Solutions <br/>
-            A Domain of Cagno Enterprises, Inc.
+           Copyright NEI Express, 2014<br/>
+           A Domain of NEI, Inc.
         </small>
     </p>
 </div>
