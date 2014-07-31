@@ -7,6 +7,7 @@ import org.springframework.ui.Model
 import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RequestMethod
+import org.springframework.web.bind.annotation.RequestParam
 
 /**
  * Created by greg on 7/29/14.
@@ -29,9 +30,12 @@ class SigController {
 	}
 
 	@RequestMapping(method = RequestMethod.POST)
-	String add(Sig sig) {
+	String add(Sig sig, @RequestParam(value = "slipsIds") List<Long> slipIds) {
+		sig.completed = System.currentTimeMillis()
 		Sig sig2 = sigData.save sig
-		"redirect:/signature/" + sig2.getId()
+		if (slipIds == null) {
+			"redirect:/signature/" + sig2.getId()
+		}
 	}
 
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
