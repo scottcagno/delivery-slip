@@ -24,7 +24,7 @@ class Slip {
     User customer
 
     @OneToOne
-    Sig signature
+    Sig sig
 
     String job = UUID.randomUUID().toString()
 }

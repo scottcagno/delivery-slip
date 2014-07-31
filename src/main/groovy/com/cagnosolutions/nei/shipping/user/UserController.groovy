@@ -34,10 +34,10 @@ class UserController {
             if(user.id == null || user.password[0] != '$')
                 user.password = new BCryptPasswordEncoder().encode(user.password)
             userData.save user
-            attr.addAttribute "alertSuccess", "Successfully saved user ${user.name}"
+            attr.addFlashAttribute "alertSuccess", "Successfully saved user ${user.name}"
             return "redirect:/secure/user/${user.id}"
         }
-        attr.addAttribute "alertError", "Unable to save user ${user.name}"
+        attr.addFlashAttribute "alertError", "Unable to save user ${user.name}"
         "redirect:/secure/user"
     }
 

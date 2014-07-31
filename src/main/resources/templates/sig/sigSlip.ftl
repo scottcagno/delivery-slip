@@ -11,10 +11,10 @@
 		<!-- content -->
 		<div id="content" class="container">
 			<div id="" class="col-sm-12" >
-				<div class="col-sm-offset-3 col-sm-6">
+				<div class="col-lg-offset-3 col-lg-6">
 					<img class="img-responsive text-center" src="${sig.signature}">
 					<br><br>
-					<form id="signatureForm" class="form-inline test-center" role="form" method="post" action="#">
+					<form id="signatureForm" class="form-inline test-center" role="form" method="post" action="/signature">
 						<div class="input-group">
 							<span class="input-group-addon">
 								Signed By:
@@ -25,6 +25,7 @@
 							</span>
 						</div>
 						<input type="hidden"  name="signature" value="${sig.signature}">
+						<input type="hidden"  name="id" value="${sig.id}">
 						<input type="hidden"  id="slipIds" name="slipIds">
 						<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 					</form>
@@ -60,20 +61,18 @@
 						this.innerText = "Added";
 						this.setAttribute('class', 'btn-primary btn');
 						this.setAttribute('data-added', '1');
-						alert(slipId);
 					} else {
 						slipId = removeValue(slipId, this.getAttribute('data-slipId'));
 						this.innerText = "Add";
 						this.setAttribute('class', 'btn-default btn');
 						this.setAttribute('data-added', '0');
-						alert(slipId);
 					}
 				});
 
 				$('button[id="done"]').click(function(e){
 					e.preventDefault();
 					$('input[id="slipIds"]').val(slipId);
-					alert($('input[id="slipIds"]').val());
+					$('form[id="signatureForm"]').submit();
 				});
 			});
 		</script>

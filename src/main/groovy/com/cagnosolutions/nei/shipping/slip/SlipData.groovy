@@ -25,6 +25,10 @@ class SlipData {
         repo.findAll()
     }
 
+	List<Slip> findAll(Iterable<Long> slipIds) {
+		repo.findAll(slipIds)
+	}
+
     Page<Slip> findAll(int page, int size, String... fields) {
         repo.findAll(new PageRequest(page, size, Sort.Direction.ASC, fields))
     }
@@ -32,6 +36,10 @@ class SlipData {
     List<Slip> findAllForCustomer(Long id) {
         repo.findAllForCustomer(id)
     }
+
+	List<Slip> findAllWithoutSig() {
+		repo.findAllWithoutSig()
+	}
 
     Slip findOne(Long id) {
         repo.findOne(id)
@@ -41,6 +49,10 @@ class SlipData {
         repo.save(slip)
     }
 
+	List<Slip> save(List<Slip> slips) {
+		repo.save(slips)
+	}
+
     def delete(Long id) {
         repo.delete(id)
     }
@@ -48,11 +60,13 @@ class SlipData {
     def delete(Slip slip) {
         repo.delete(slip)
     }
-
 }
 
 @Repository
 interface SlipRepository extends JpaRepository<Slip, Long> {
     @Query("SELECT s FROM Slip s WHERE s.customer.id=:id")
     List<Slip> findAllForCustomer(@Param("id") Long id)
+
+	@Query("SELECT s FROM Slip s WHERE s.sig.id=NULL")
+	List<Slip> findAllWithoutSig();
 }
