@@ -1,4 +1,4 @@
-package com.cagnosolutions.nei.shipping.sig
+package com.cagnosolutions.nei.shipping.signature
 
 import com.cagnosolutions.nei.shipping.slip.Slip
 import com.cagnosolutions.nei.shipping.slip.SlipData
@@ -7,17 +7,13 @@ import org.springframework.stereotype.Controller
 import org.springframework.ui.Model
 import org.springframework.web.bind.annotation.*
 
-/**
- * Created by greg on 7/29/14.
- */
-
 @Controller
 @RequestMapping(value = "/signature")
-class SigController {
+class SignatureController {
 
 
 	@Autowired
-	SigData sigData
+	SignatureData signatureData
 
 	@Autowired
 	SlipData slipData
@@ -27,16 +23,22 @@ class SigController {
 		"sig/sig"
 	}
 
+    @RequestMapping(value="/{id}/view", method = RequestMethod.GET)
+    @ResponseBody
+    String viewOne(@PathVariable Long id) {
+        signatureData.findOne id
+    }
+
 	@RequestMapping(method = RequestMethod.POST)
-	String add(Sig sig, @RequestParam(value = "slipIds", required = false) List<Long> slipIds) {
-		sig.completed = System.currentTimeMillis()
-		sig = sigData.save sig
+	String add(Signature signature, @RequestParam(value = "slipIds", required = false) List<Long> slipIds) {
+		signature.completed = System.currentTimeMillis()
+		signature = signatureData.save signature
 		if (slipIds == null) {
-			return "redirect:/signature/${sig.id}"
+			return "redirect:/signature/${signature.id}"
 		}
 		List<Slip> slips = slipData.findAll(slipIds)
 		slips.collect { slip ->
-			slip.sig = sig
+			slip.signature = signature
 		}
 		slipData.save slips
 		"redirect:/"
@@ -44,7 +46,7 @@ class SigController {
 
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
 	String selectSlip(Model model, @PathVariable Long id) {
-		model.addAllAttributes([sig: sigData.findOne(id), slips: slipData.findAllWithoutSig()])
-		"sig/sigSlip"
+		model.addAllAttributes([signature: signatureData.findOne(id), slips: slipData.findAllWithoutSig()])
+		"sig/sigslip"
 	}
 }

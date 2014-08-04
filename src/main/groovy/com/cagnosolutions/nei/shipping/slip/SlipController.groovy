@@ -1,13 +1,13 @@
 package com.cagnosolutions.nei.shipping.slip
 
-import com.cagnosolutions.nei.shipping.user.UserData
+import com.cagnosolutions.nei.shipping.customer.CustomerData
+import com.cagnosolutions.nei.shipping.signature.SignatureData
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Controller
 import org.springframework.ui.Model
 import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RequestMethod
-import org.springframework.web.bind.annotation.RequestParam
 
 /**
  * Created by Scott Cagno.
@@ -22,34 +22,33 @@ class SlipController {
     SlipData slipData
 
     @Autowired
-    UserData userData
+    CustomerData customerData
 
-    // view all (get)
+    @Autowired
+    SignatureData signatureData
+
     @RequestMapping(method = RequestMethod.GET)
     String all(Model model) {
         model.addAttribute "slips", slipData.findAll()
         "slip/slip"
     }
 
-    // add/edit (post)
     @RequestMapping(method = RequestMethod.POST)
-    String addOrEdit(Slip slip, @RequestParam(required = false) Long customerId) {
-        if (userData.exists(customerId)) {
-            slip.customer = userData.findOne customerId
-            slipData.save slip
-        }
+    String addOrEdit(Slip slip) {
+        if(slip.customer.id != null)
+            slip.customer = customerData.findOne(slip.customer.id)
+        if(slip.signature.id != null)
+            slip.signature = signatureData.findOne(slip.signature.id)
+        slipData.save slip
         "redirect:/secure/slip"
     }
 
-
-    // view/display (get)
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     String view(Model model, @PathVariable Long id) {
         model.addAllAttributes([slips:slipData.findAll(), slip:slipData.findOne(id)])
         "slip/slip"
     }
 
-    // delete (post)
     @RequestMapping(value = "/{id}", method = RequestMethod.POST)
     String delete(@PathVariable Long id) {
         slipData.delete id

@@ -1,16 +1,12 @@
-package com.cagnosolutions.nei.shipping.sig
+package com.cagnosolutions.nei.shipping.signature
 
 import javax.persistence.Column
 import javax.persistence.Entity
 import javax.persistence.GeneratedValue
 import javax.persistence.Id
 
-/**
- * Created by greg on 7/29/14.
- */
-
 @Entity
-class Sig {
+class Signature {
 
     @Id
     @GeneratedValue

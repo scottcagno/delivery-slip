@@ -1,4 +1,4 @@
-package com.cagnosolutions.nei.shipping.sig
+package com.cagnosolutions.nei.shipping.signature
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.PageRequest
@@ -12,24 +12,24 @@ import org.springframework.stereotype.Service
  */
 
 @Service
-class SigData {
+class SignatureData {
 
     @Autowired
-    SigRepository repo
+    SignatureRepository repo
 
-    List<Sig> findAll() {
+    List<Signature> findAll() {
         repo.findAll()
     }
 
-    Page<Sig> findAll(int page, int size, String... fields) {
+    Page<Signature> findAll(int page, int size, String... fields) {
         repo.findAll(new PageRequest(page, size, Sort.Direction.ASC, fields))
     }
 
-    Sig findOne(Long id) {
+    Signature findOne(Long id) {
         repo.findOne(id)
     }
 
-    Sig save(Sig sig) {
+    Signature save(Signature sig) {
         repo.save(sig)
     }
 
@@ -37,12 +37,12 @@ class SigData {
         repo.delete(id)
     }
 
-    def delete(Sig sig) {
+    def delete(Signature sig) {
         repo.delete(sig)
     }
 
 }
 
 @Repository
-interface SigRepository extends JpaRepository<Sig, Long> {
+interface SignatureRepository extends JpaRepository<Signature, Long> {
 }

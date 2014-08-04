@@ -1,7 +1,6 @@
 package com.cagnosolutions.nei.shipping.slip
-
-import com.cagnosolutions.nei.shipping.sig.Sig
-import com.cagnosolutions.nei.shipping.user.User
+import com.cagnosolutions.nei.shipping.customer.Customer
+import com.cagnosolutions.nei.shipping.signature.Signature
 
 import javax.persistence.Entity
 import javax.persistence.GeneratedValue
@@ -20,11 +19,15 @@ class Slip {
     @GeneratedValue
     Long id
 
-    @OneToOne
-    User customer
+    Date created
 
     @OneToOne
-    Sig sig
+    Customer customer
 
-    String job = UUID.randomUUID().toString()
+    @OneToOne
+    Signature signature
+
+    Integer sort, jobNumber, quantity, cartons, samples, complete, active
+    String jobName, po, notes
+
 }

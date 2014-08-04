@@ -32,6 +32,7 @@ class Application {
 
 @Configuration
 class StaticMapping extends WebMvcConfigurerAdapter {
+
     void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler("/static/**").addResourceLocations("classpath:/static/");
     }

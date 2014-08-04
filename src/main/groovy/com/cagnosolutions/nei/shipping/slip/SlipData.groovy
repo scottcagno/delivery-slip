@@ -67,6 +67,6 @@ interface SlipRepository extends JpaRepository<Slip, Long> {
     @Query("SELECT s FROM Slip s WHERE s.customer.id=:id")
     List<Slip> findAllForCustomer(@Param("id") Long id)
 
-	@Query("SELECT s FROM Slip s WHERE s.sig.id=NULL")
+	@Query("SELECT s FROM Slip s WHERE s.signature.id=NULL")
 	List<Slip> findAllWithoutSig();
 }

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head id="head">
-    <title>Slips</title>
+    <title>Customers</title>
     <#include "../stubs/header.ftl">
 </head>
     <body id="body">
@@ -13,53 +13,34 @@
             <!-- add/edit -->
             <div class="col-sm-4">
                 <div class="panel panel-default">
-                    <div class="panel-heading">Slip Details</div>
+                    <div class="panel-heading">Add or Update Customer <span class="pull-right"><a href="/secure/user">Add New</a></span></div>
                     <div class="panel-body">
-                        <form role="form" method="post" action="/secure/slip">
+                        <form role="form" method="post" action="/secure/customer">
                             <div class="form-group">
-                                <span>${('Created: ' + slip.created)!}</span>
+                                <input type="text" id="company" name="company" value="${(customer.company)!}" class="form-control" placeholder="Company" required="true" autofocus="true"/>
                             </div>
                             <div class="form-group">
-                                <#if slip??>
-                                    <a href="/secure/customer/${(slip.customer.id?c)!}">${('Company: ' + slip.customer.company)!}</a>
-                                </#if>
+                                <input type="text" id="contact" name="contact" value="${(customer.contact)!}" class="form-control" placeholder="Contact" required="true"/>
                             </div>
                             <div class="form-group">
-                                <#if slip??>
-                                    <a href="/signature/${(slip.signature.id?c)!}/view">Signed By: ${(slip.signature.signedBy)!'Not signed'}</a>
-                                </#if>
+                                <input type="text" id="phone" name="phone" value="${(customer.phone)!}" class="form-control" placeholder="Phone" required="true"/>
                             </div>
                             <div class="form-group">
-                                <input type="number" id="sort" name="sort" value="${(slip.sort?c)!}" class="form-control" placeholder="Sort" required="true"/>
+                                <input type="text" id="email" name="email" value="${(customer.email)!}" class="form-control" placeholder="Email" required="true"/>
                             </div>
                             <div class="form-group">
-                                <input type="number" id="jobNumber" name="jobNumber" value="${(slip.jobNumber?c)!}" class="form-control" placeholder="Job Number" required="true"/>
+                                <input type="text" id="street" name="street" value="${(customer.street)!}" class="form-control" placeholder="Street" required="true"/>
                             </div>
                             <div class="form-group">
-                                <input type="number" id="quantity" name="quantity" value="${(slip.quantity?c)!}" class="form-control" placeholder="Quantity" required="true"/>
+                                <input type="text" id="city" name="city" value="${(customer.city)!}" class="form-control" placeholder="City" required="true"/>
                             </div>
                             <div class="form-group">
-                                <input type="number" id="cartons" name="cartons" value="${(slip.cartons?c)!}" class="form-control" placeholder="Cartons" required="true"/>
+                                <input type="text" id="state" name="state" value="${(customer.state)!}" class="form-control" placeholder="State" required="true"/>
                             </div>
                             <div class="form-group">
-                                <input type="number" id="samples" name="samples" value="${(slip.samples?c)!}" class="form-control" placeholder="Samples" required="true"/>
+                                <input type="text" id="zip" name="zip" value="${(customer.zip)!}" class="form-control" placeholder="Zipcode" required="true"/>
                             </div>
-                            <div class="form-group">
-                                <input type="number" id="complete" name="complete" value="${(slip.complete?c)!}" class="form-control" placeholder="Complete" required="true"/>
-                            </div>
-                            <div class="form-group">
-                                <input type="number" id="active" name="active" value="${(slip.active?c)!}" class="form-control" placeholder="Active" required="true"/>
-                            </div>
-                            <div class="form-group">
-                                <input type="text" id="jobName" name="jobName" value="${(slip.jobName)!}" class="form-control" placeholder="Job Name" required="true"/>
-                            </div>
-                            <div class="form-group">
-                                <input type="text" id="po" name="po" value="${(slip.po)!}" class="form-control" placeholder="PO #" required="false"/>
-                            </div>
-                            <div class="form-group">
-                                <input type="text" id="notes" name="notes" value="${(slip.jobName)!}" class="form-control" placeholder="Job Name" required="true"/>
-                            </div>
-                            <input type="hidden" name="id" value="${(slip.id)!}"/>
+                            <input type="hidden" name="id" value="${(customer.id)!}"/>
                             <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
                             <button class="btn btn-md btn-primary btn-block" type="submit">Save</button>
                         </form>
@@ -70,33 +51,31 @@
             <!-- view all -->
             <div class="col-sm-8">
                 <div class="panel panel-default">
-                    <div class="panel-heading">Current Slips</div>
+                    <div class="panel-heading">Current Customers</div>
                     <div class="panel-body">
                         <div class="table-responsive">
                             <table class="table table-striped">
                                 <thead>
                                 <tr>
-                                    <th>Id</th>
-                                    <th>Created</th>
                                     <th>Company</th>
-                                    <th>Signature</th>
-                                    <th>Job</th>
+                                    <th>Contact</th>
+                                    <th>Email</th>
+                                    <th>Address</th>
                                     <th>Actions</th>
                                 </tr>
                                 </thead>
                                 <tbody>
-                                    <#list slips as slip>
+                                    <#list customers as customer>
                                         <tr>
-                                            <td>${(slip.id)!}</td>
-                                            <td>${(slip.created)!}</td>
-                                            <td>${(slip.customer.company)!}</td>
-                                            <td>${(slip.signature.signedBy)!'Not signed'}</td>
-                                            <td>${('Job #' + slip.jobNumber?c)!}</td>
+                                            <td>${(customer.company)!}</td>
+                                            <td>${(customer.contact)!}</td>
+                                            <td>${(customer.email)!}</td>
+                                            <td>${(customer.street + ' ' + customer.city + ', ' + customer.state + ' ' + customer.zip)!}</td>
                                             <td>
-                                                <a href="/secure/slip/${(slip.id)!}" class="btn btn-xs btn-primary">
+                                                <a href="/secure/customer/${(customer.id)!}" class="btn btn-xs btn-primary">
                                                     <i class="fa fa-pencil"></i>
                                                 </a>
-                                                <a href="#" class="btn btn-danger btn-xs" data-id="${(slip.id)!}" data-toggle="modal" data-target="#deleteCheck">
+                                                <a href="#" class="btn btn-danger btn-xs" data-id="${(customer.id)!}" data-toggle="modal" data-target="#deleteCheck">
                                                     <i class="fa fa-trash-o"></i>
                                                 </a>
                                             </td>
@@ -119,14 +98,14 @@
                         <h4 class="modal-title">Are you sure?</h4>
                     </div>
                     <div class="modal-body">
-                        Permantly remove slip? This action cannot be undone.
+                        Permantly remove user? This action cannot be undone.
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default btn-md pull-left" data-dismiss="modal">No, Cancel</button>
                         <span id="delete">
-                            <form role="form" method="post" action="/secure/slip/{id}">
+                            <form role="form" method="post" action="/secure/customer/{id}">
                                 <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-                                <button type="submit" class="btn btn-primary btn-md">Yes, Remove Slip</button>
+                                <button type="submit" class="btn btn-primary btn-md">Yes, Remove User</button>
                             </form>
                         </span>
 
