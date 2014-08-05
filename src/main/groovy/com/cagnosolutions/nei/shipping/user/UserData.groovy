@@ -16,7 +16,7 @@ import org.springframework.stereotype.Service
  */
 
 @Service
-class UserData {
+class UserService {
 
     @Autowired
     UserRepository repo

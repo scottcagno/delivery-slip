@@ -1,6 +1,6 @@
 package com.cagnosolutions.nei.shipping
 
-import com.cagnosolutions.nei.shipping.user.UserData
+import com.cagnosolutions.nei.shipping.user.UserService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Controller
 import org.springframework.ui.Model
@@ -27,7 +27,7 @@ class IndexController {
 class Authentication {
 
     @Autowired
-    UserData userData
+    UserService userData
 
     @RequestMapping(value=["/login"])
     String login() {

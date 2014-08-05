@@ -10,13 +10,15 @@ import org.springframework.data.repository.query.Param
 import org.springframework.stereotype.Repository
 import org.springframework.stereotype.Service
 
+import java.text.SimpleDateFormat
+
 /**
  * Created by Scott Cagno.
  * Copyright Cagno Solutions. All rights reserved.
  */
 
 @Service
-class SlipData {
+class SlipService {
 
     @Autowired
     SlipRepository repo
@@ -37,8 +39,10 @@ class SlipData {
         repo.findAllForCustomer(id)
     }
 
-	List<Slip> findAllWithoutSig() {
-		repo.findAllWithoutSig()
+	List<Slip> findAllValid() {
+		repo.findAllValid(new Date())
+		def format = new SimpleDateFormat("MM/dd/yyyy")
+		Date date = format.parse(format.format(new Date()))
 	}
 
     Slip findOne(Long id) {
@@ -67,6 +71,6 @@ interface SlipRepository extends JpaRepository<Slip, Long> {
     @Query("SELECT s FROM Slip s WHERE s.customer.id=:id")
     List<Slip> findAllForCustomer(@Param("id") Long id)
 
-	@Query("SELECT s FROM Slip s WHERE s.signature.id=NULL")
-	List<Slip> findAllWithoutSig();
+	@Query("SELECT s FROM Slip s WHERE s.signature.id=NULL AND s.active=1 AND dayofyear(s.created)=dayofyear(:date)")
+	List<Slip> findAllValid(@Param(value = "date") Date date);
 }

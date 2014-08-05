@@ -14,7 +14,7 @@
 				<div class="col-lg-offset-3 col-lg-6">
 					<img class="img-responsive text-center" src="${signature.signature}">
 					<br><br>
-					<form id="signatureForm" class="form-inline test-center" role="form" method="post" action="/signature">
+					<form id="signatureForm" class="form-inline test-center" role="form" method="post" action="/secure/signature">
 						<div class="input-group">
 							<span class="input-group-addon">
 								Signed By:

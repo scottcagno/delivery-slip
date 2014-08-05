@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestMethod
 class CustomerController {
 
     @Autowired
-    CustomerData customerData
+    CustomerService customerData
 
     @RequestMapping(method=[RequestMethod.GET])
     String viewAll(Model model) {

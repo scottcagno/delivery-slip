@@ -12,7 +12,7 @@ class Signature {
     @GeneratedValue
     Long Id
 
-    Long completed
+    Date completed
     String signedBy
 
 	@Column(length = 500000)

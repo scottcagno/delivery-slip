@@ -1,14 +1,12 @@
 package com.cagnosolutions.nei.shipping.slip
-
-import com.cagnosolutions.nei.shipping.customer.CustomerData
-import com.cagnosolutions.nei.shipping.signature.SignatureData
+import com.cagnosolutions.nei.shipping.customer.CustomerService
+import com.cagnosolutions.nei.shipping.signature.SignatureService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Controller
 import org.springframework.ui.Model
 import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RequestMethod
-
 /**
  * Created by Scott Cagno.
  * Copyright Cagno Solutions. All rights reserved.
@@ -19,13 +17,13 @@ import org.springframework.web.bind.annotation.RequestMethod
 class SlipController {
 
     @Autowired
-    SlipData slipData
+    SlipService slipData
 
     @Autowired
-    CustomerData customerData
+    CustomerService customerData
 
     @Autowired
-    SignatureData signatureData
+    SignatureService signatureData
 
     @RequestMapping(method = RequestMethod.GET)
     String all(Model model) {
@@ -35,10 +33,11 @@ class SlipController {
 
     @RequestMapping(method = RequestMethod.POST)
     String addOrEdit(Slip slip) {
-        if(slip.customer.id != null)
+        if(slip.customer != null)
             slip.customer = customerData.findOne(slip.customer.id)
-        if(slip.signature.id != null)
+        if(slip.signature != null)
             slip.signature = signatureData.findOne(slip.signature.id)
+		Date date = new Date()
         slipData.save slip
         "redirect:/secure/slip"
     }

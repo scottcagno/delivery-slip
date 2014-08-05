@@ -20,7 +20,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes
 class UserController {
 
     @Autowired
-    UserData userData
+    UserService userData
 
     @RequestMapping(method=[RequestMethod.GET])
     String viewAll(Model model) {

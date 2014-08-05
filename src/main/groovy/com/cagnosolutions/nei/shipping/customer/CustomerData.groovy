@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service
  */
 
 @Service
-class CustomerData {
+class CustomerService {
 
     @Autowired
     CustomerRepository repo

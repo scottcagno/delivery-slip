@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service
  */
 
 @Service
-class SignatureData {
+class SignatureService {
 
     @Autowired
     SignatureRepository repo
