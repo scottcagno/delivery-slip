@@ -1,12 +1,12 @@
 package com.cagnosolutions.nei.shipping.slip
 import com.cagnosolutions.nei.shipping.customer.Customer
 import com.cagnosolutions.nei.shipping.signature.Signature
+import org.hibernate.annotations.Type
 
 import javax.persistence.Entity
 import javax.persistence.GeneratedValue
 import javax.persistence.Id
 import javax.persistence.OneToOne
-
 /**
  * Created by Scott Cagno.
  * Copyright Cagno Solutions. All rights reserved.
@@ -19,6 +19,7 @@ class Slip {
     @GeneratedValue
     Long id
 
+	@Type(type = "date")
     Date created
 
     @OneToOne
@@ -27,7 +28,7 @@ class Slip {
     @OneToOne
     Signature signature
 
-    Integer sort, jobNumber, quantity, cartons, samples, complete, active
+    Integer sort, jobNumber, quantity, cartons, samples, active
     String jobName, po, notes
 
 }

@@ -1,17 +1,14 @@
 package com.cagnosolutions.nei.shipping.slip
-
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.PageRequest
+import org.springframework.data.domain.Pageable
 import org.springframework.data.domain.Sort
 import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.data.jpa.repository.Query
 import org.springframework.data.repository.query.Param
 import org.springframework.stereotype.Repository
 import org.springframework.stereotype.Service
-
-import java.text.SimpleDateFormat
-
 /**
  * Created by Scott Cagno.
  * Copyright Cagno Solutions. All rights reserved.
@@ -35,14 +32,26 @@ class SlipService {
         repo.findAll(new PageRequest(page, size, Sort.Direction.ASC, fields))
     }
 
+	Page<Slip> findAll(Pageable pageable) {
+		repo.findAll(pageable)
+	}
+
+	List<Slip> findAll(String sort, String order) {
+		if ((sort == null && order == null) || sort == null) {
+			return repo.findAll()
+		}
+		if (order == null || !order.toLowerCase().startsWith("asc") || !order.toLowerCase().startsWith("desc")) {
+			return  repo.findAll(new Sort(Sort.Direction.fromString("ASC"), sort))
+		}
+		repo.findAll(new Sort(Sort.Direction.fromString(order), sort))
+	}
+
     List<Slip> findAllForCustomer(Long id) {
         repo.findAllForCustomer(id)
     }
 
 	List<Slip> findAllValid() {
-		repo.findAllValid(new Date())
-		def format = new SimpleDateFormat("MM/dd/yyyy")
-		Date date = format.parse(format.format(new Date()))
+		repo.findAllValid()
 	}
 
     Slip findOne(Long id) {
@@ -71,6 +80,6 @@ interface SlipRepository extends JpaRepository<Slip, Long> {
     @Query("SELECT s FROM Slip s WHERE s.customer.id=:id")
     List<Slip> findAllForCustomer(@Param("id") Long id)
 
-	@Query("SELECT s FROM Slip s WHERE s.signature.id=NULL AND s.active=1 AND dayofyear(s.created)=dayofyear(:date)")
-	List<Slip> findAllValid(@Param(value = "date") Date date);
+	@Query("SELECT s FROM Slip s WHERE s.active=1 AND s.signature=NULL AND s.created=CURRENT_DATE")
+	List<Slip> findAllValid()
 }

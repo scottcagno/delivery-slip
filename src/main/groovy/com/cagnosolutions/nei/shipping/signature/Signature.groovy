@@ -13,6 +13,7 @@ class Signature {
     Long Id
 
     Date completed
+
     String signedBy
 
 	@Column(length = 500000)
