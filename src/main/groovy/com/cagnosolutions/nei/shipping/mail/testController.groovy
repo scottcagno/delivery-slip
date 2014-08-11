@@ -17,7 +17,7 @@ class testController {
 	SlipService slipService
 
 	@Autowired
-	MailServiceConstruction mailService
+	MailService mailService
 
 	@RequestMapping("/mail")
 	@ResponseBody

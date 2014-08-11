@@ -1,4 +1,5 @@
 package com.cagnosolutions.nei.shipping.mail
+
 import freemarker.template.Configuration
 import freemarker.template.Template
 import org.springframework.beans.factory.annotation.Autowired
@@ -14,11 +15,11 @@ import javax.mail.internet.MimeMessage
 @Service(value = "mailService")
 class MailService {
 
-	@Autowired
-	JavaMailSender mailSender;
+    @Autowired
+    JavaMailSender mailSender;
 
 	@Autowired
-	Configuration freeMarkerConfiguration
+	Configuration freeMarkerConfiguration;
 
 	def sendSimpleEmail(String from, String subject, String body, String... to) {
 		Thread.start {
@@ -31,20 +32,22 @@ class MailService {
 			mailSender.send(email)
 		}
 	}
+
 	def sendMimeMail(String from, String subject, String template, Map model, String... to) {
 		Thread.start {
 			MimeMessagePreparator preparator = new MimeMessagePreparator() {
-				void prepare(MimeMessage mimeMessage) throws Exception {
+				void prepare(MimeMessage mimeMessage) {
 					MimeMessageHelper email = new MimeMessageHelper(mimeMessage)
 					email.setTo(to)
 					email.setFrom(from)
 					email.setReplyTo(from)
 					email.setSubject(subject)
 					Template temp = freeMarkerConfiguration.getTemplate(template)
-					String text = FreeMarkerTemplateUtils.processTemplateIntoString(temp, model);
+					String text = FreeMarkerTemplateUtils.processTemplateIntoString(temp, model)
+					//String text = "<!DOCTYPE html><html><body><h1>MY Email</h1></body></html>"
 					email.setText(text, true)
 				}
-			};
+			}
 			mailSender.send(preparator)
 		}
 	}
