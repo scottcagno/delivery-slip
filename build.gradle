@@ -1,6 +1,6 @@
 buildscript {
     ext {
-        springBootVersion = '1.1.4.RELEASE'
+        springBootVersion = '1.1.5.RELEASE'
     }
     repositories {
         mavenCentral()
@@ -31,9 +31,8 @@ dependencies {
     compile("org.springframework.boot:spring-boot-starter-actuator")
     compile("org.springframework.boot:spring-boot-starter-data-jpa")
     compile("org.springframework.boot:spring-boot-starter-security")
-    compile("org.codehaus.groovy:groovy:2.3.6")
+    compile("org.codehaus.groovy:groovy")
     compile("mysql:mysql-connector-java")
-	compile("jaf:activation:1.0.2")
 	compile("javax.mail:mail:1.4.7")
     runtime("com.h2database:h2")
 }

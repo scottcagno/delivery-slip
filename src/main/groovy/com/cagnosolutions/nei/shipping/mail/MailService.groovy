@@ -1,25 +1,25 @@
 package com.cagnosolutions.nei.shipping.mail
-
 import freemarker.template.Configuration
 import freemarker.template.Template
+import groovy.transform.CompileStatic
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.mail.SimpleMailMessage
 import org.springframework.mail.javamail.JavaMailSender
 import org.springframework.mail.javamail.MimeMessageHelper
-import org.springframework.mail.javamail.MimeMessagePreparator
 import org.springframework.stereotype.Service
 import org.springframework.ui.freemarker.FreeMarkerTemplateUtils
 
 import javax.mail.internet.MimeMessage
 
+@CompileStatic
 @Service(value = "mailService")
 class MailService {
 
     @Autowired
-    JavaMailSender mailSender;
+    JavaMailSender mailSender
 
 	@Autowired
-	Configuration freeMarkerConfiguration;
+	Configuration freeMarkerConfiguration
 
 	def sendSimpleEmail(String from, String subject, String body, String... to) {
 		Thread.start {
@@ -35,20 +35,16 @@ class MailService {
 
 	def sendMimeMail(String from, String subject, String template, Map model, String... to) {
 		Thread.start {
-			MimeMessagePreparator preparator = new MimeMessagePreparator() {
-				void prepare(MimeMessage mimeMessage) {
-					MimeMessageHelper email = new MimeMessageHelper(mimeMessage)
-					email.setTo(to)
-					email.setFrom(from)
-					email.setReplyTo(from)
-					email.setSubject(subject)
-					Template temp = freeMarkerConfiguration.getTemplate(template)
-					String text = FreeMarkerTemplateUtils.processTemplateIntoString(temp, model)
-					//String text = "<!DOCTYPE html><html><body><h1>MY Email</h1></body></html>"
-					email.setText(text, true)
-				}
-			}
-			mailSender.send(preparator)
+			MimeMessage email = mailSender.createMimeMessage()
+			MimeMessageHelper helper = new MimeMessageHelper(email, true)
+			helper.setTo(to)
+			helper.setFrom(from)
+			helper.setReplyTo(from)
+			helper.setSubject(subject)
+			Template temp = freeMarkerConfiguration.getTemplate(template)
+			String text = FreeMarkerTemplateUtils.processTemplateIntoString(temp, model)
+			helper.setText(text, true)
+			mailSender.send(email)
 		}
 	}
 }
