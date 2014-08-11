@@ -8,11 +8,15 @@ buildscript {
     dependencies {
         classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
     }
+
 }
 
 apply plugin: 'idea'
 apply plugin: 'groovy'
-apply plugin: 'spring-boot' 
+apply plugin: 'spring-boot'
+apply plugin: 'java'
+
+mainClassName = 'com.cagnosolutions.nei.shipping.Application'
 
 jar {
     baseName = 'spring-starter'
@@ -32,6 +36,8 @@ dependencies {
     compile("org.springframework.boot:spring-boot-starter-security")
     compile("org.codehaus.groovy:groovy")
     compile("mysql:mysql-connector-java")
+	compile("jaf:activation:1.0.2")
+	compile("javax.mail:mail:1.4.7")
     runtime("com.h2database:h2")
 }
 

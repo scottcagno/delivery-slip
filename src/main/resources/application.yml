@@ -2,12 +2,15 @@ spring:
   profiles:
     active: production
 
-  server:
-    port: 8080
-    address: 127.0.0.1
+
 
   freemarker:
     exposeSessionAttributes: true
+    exposeRequestAttributes: true
+
+server:
+    port: 9090
+    address: 127.0.0.1
 
 security:
   user:
@@ -19,6 +22,12 @@ security:
 http:
   mappers:
     jsonPrettyPrint: true
+
+mail:
+    host: smtp.mandrillapp.com
+    port: 587
+    user: scottiecagno@gmail.com
+    pass: AyRsB5cI5H4bcrbheDKfzQ
 
 ---
 spring:

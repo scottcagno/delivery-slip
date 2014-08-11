@@ -34,11 +34,16 @@ class SlipController {
 	@RequestMapping(method = RequestMethod.GET)
 	Object all(Model model, @RequestParam(required = false) Integer page, @RequestParam(required = false) String sort) {
 		def slips = slipService.findAll(page? page-1 :0 , 20, sort?:"id")
-		def ub = ((slips.totalPages - (page? page :1) >= 10)? page + 9 : slips.totalPages)
-		model.addAllAttributes([slips: slips, lb: (page? page :1), ub : ub])
+
+		page = (page? page :1)
+		def ub = (((slips.totalPages - page) >= 4)? page + 4 : slips.totalPages)
+		if (page < 6) {
+			ub = ((slips.totalPages > 10)? 10 : slips.totalPages)
+		}
+		def lb = (((ub - 9) > 0)? ub-9: 1)
+		model.addAllAttributes([slips: slips, lb: lb, ub : ub])
 		"slip/slip"
 	}
-
     @RequestMapping(method = RequestMethod.POST)
     String addOrEdit(Slip slip) {
         if(slip.customer != null)

@@ -97,6 +97,7 @@
 										<th><a href="/secure/slip?page=${(RequestParameters.page)!}&sort=customer.company">Company</a></th>
 										<th><a href="/secure/slip?page=${(RequestParameters.page)!}&sort=po">PO</a></th>
 										<th><a href="/secure/slip?page=${(RequestParameters.page)!}&sort=jobNumber">Job</a></th>
+										<th><a href="/secure/slip?page=${(RequestParameters.page)!}&sort=jobName">Job Name</a></th>
 										<th><a href="/secure/slip?page=${(RequestParameters.page)!}&sort=quantity">Quantity</a></th>
 										<th><a href="/secure/slip?page=${(RequestParameters.page)!}&sort=cartons">Cartons</a></th>
 										<th><a href="/secure/slip?page=${(RequestParameters.page)!}&sort=samples">Samples</a></th>
@@ -114,6 +115,7 @@
 											<td><a href="/secure/customer/${(slip.customer.id)!}">${(slip.customer.company)!}</a></td>
 											<td>${(slip.po)!}</td>
 											<td>${('Job #' + slip.jobNumber?c)!}</td>
+											<td>${(slip.jobName)!}</td>
 											<td>${(slip.quantity)!}</td>
 											<td>${(slip.cartons)!}</td>
 											<td>${(slip.samples)!}</td>

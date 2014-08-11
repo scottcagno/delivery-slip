@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RequestMethod
 import org.springframework.web.bind.annotation.RequestParam
+import org.springframework.web.servlet.mvc.support.RedirectAttributes
 
 @Controller
 @RequestMapping(value = "/secure/signature")
@@ -32,17 +33,21 @@ class SignatureController {
 	}
 
 	@RequestMapping(method = RequestMethod.POST)
-	String add(Signature signature, @RequestParam(value = "slipIds", required = false) List<Long> slipIds) {
+	String add(Signature signature, @RequestParam(value = "slipIds", required = false) List<Long> slipIds, RedirectAttributes attr) {
 		signature.completed = new Date()
 		signature = signatureService.save signature
 		if (slipIds == null) {
 			return "redirect:/secure/signature/${signature.id}"
 		}
 		List<Slip> slips = slipData.findAll(slipIds)
-		slips.collect { slip ->
-			slip.signature = signature
-		}
+		slips*.signature << signature
 		slipData.save slips
+		List<String> emails
+		slips.collect { slip ->
+			// send email to slip.customer.email
+			emails.add(slip.customer.email)
+		}
+		attr.addFlashAttribute("emails", emails)
 		"redirect:/"
 	}
 
