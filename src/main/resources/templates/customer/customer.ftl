@@ -53,20 +53,35 @@
                 <div class="panel panel-default">
                     <div class="panel-heading">Current Customers</div>
                     <div class="panel-body">
+						<div id="pagenator" class="text-center">
+							<#assign prev = ((customers.firstPage) ? string('1', customers.number))/>
+							<#assign next = ((customers.lastPage) ? string (customers.number +1, customers.number + 2)) />
+							<ul class="pagination">
+								<li ${(customers.firstPage)?string('class="disabled"', '')}><a href="/secure/customer?page=1&sort=${(RequestParameters.sort)!}">First</a></li>
+								<li ${(customers.firstPage)?string('class="disabled"', '')}><a href="/secure/customer?page=${prev}&sort=${(RequestParameters.sort)!}">&laquo;</a></li>
+								<#list lb..ub as n>
+									<li ${(n == customers.number + 1)?string('class="active"', '')}><a href="/secure/customer?page=${n}&sort=${(RequestParameters.sort)!}">${n}</a></li>
+								</#list>
+								<li ${(customers.lastPage)?string('class="disabled"', '')}><a href="/secure/customer?page=${next}&sort=${(RequestParameters.sort)!}">&raquo;</a></li>
+								<li ${(customers.lastPage)?string('class="disabled"', '')}><a href="/secure/customer?page=${customers.totalPages}&sort=${(RequestParameters.sort)!}">Last</a></li>
+							</ul>
+						</div>
                         <div class="table-responsive">
                             <table class="table table-striped">
                                 <thead>
                                 <tr>
-                                    <th>Company</th>
-                                    <th>Contact</th>
-                                    <th>Email</th>
-                                    <th>Address</th>
+									<th><a href="/secure/customer?page=${(RequestParameters.page)!}&sort=id">Id</a></th>
+                                    <th><a href="/secure/customer?page=${(RequestParameters.page)!}&sort=company">Company</a></th>
+                                    <th><a href="/secure/customer?page=${(RequestParameters.page)!}&sort=contact">Contact</a></th>
+                                    <th><a href="/secure/customer?page=${(RequestParameters.page)!}&sort=email">Email</a></th>
+                                    <th><a href="/secure/customer?page=${(RequestParameters.page)!}&sort=street">Address</a></th>
                                     <th>Actions</th>
                                 </tr>
                                 </thead>
                                 <tbody>
-                                    <#list customers as customer>
+                                    <#list customers.content as customer>
                                         <tr>
+											<td>${(customer.id)!}</td>
                                             <td>${(customer.company)!}</td>
                                             <td>${(customer.contact)!}</td>
                                             <td>${(customer.email)!}</td>

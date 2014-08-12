@@ -2,11 +2,13 @@
 <html lang="en">
 	<head id="head">
 		<title>Login Page</title>
-        <#include "stubs/header.ftl">
+        <#include "stubs/header.ftl"/>
 	</head>
 	<body id="body">
 
-		<#include "stubs/navbar.ftl">
+		<#include "stubs/navbar.ftl"/>
+
+
 
         <!-- content -->
         <div class="jumbotron">
@@ -34,8 +36,8 @@
         </div>
         <!-- content -->
 
-        <#include "stubs/footer.ftl">
+        <#include "stubs/footer.ftl"/>
 
-		<#include "stubs/scripts.ftl">
+		<#include "stubs/scripts.ftl"/>
 	</body>
 </html>

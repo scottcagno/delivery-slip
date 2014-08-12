@@ -1,4 +1,6 @@
 package com.cagnosolutions.nei.shipping.signature
+
+import com.cagnosolutions.nei.shipping.mail.MailService
 import com.cagnosolutions.nei.shipping.slip.Slip
 import com.cagnosolutions.nei.shipping.slip.SlipService
 import org.springframework.beans.factory.annotation.Autowired
@@ -21,6 +23,9 @@ class SignatureController {
 	@Autowired
 	SlipService slipData
 
+	@Autowired
+	MailService mailService
+
 	@RequestMapping(method = RequestMethod.GET)
 	String view() {
 		"signature/signature"
@@ -40,11 +45,15 @@ class SignatureController {
 			return "redirect:/secure/signature/${signature.id}"
 		}
 		List<Slip> slips = slipData.findAll(slipIds)
-		slips*.signature << signature
-		slipData.save slips
-		List<String> emails
+		/*slips*.signature << signature
+		slipData.save slips*/
+		def emails = new ArrayList<String>()
+		Map map = new HashMap()
 		slips.collect { slip ->
-			// send email to slip.customer.email
+			slip.signature = signature
+			def savedSlip = slipData.save slip
+			map.put("slip", savedSlip)
+			mailService.sendMimeMail("test@test.com", "Slip Accepted", "mail/signed.ftl", map, slip.customer.email)
 			emails.add(slip.customer.email)
 		}
 		attr.addFlashAttribute("emails", emails)
@@ -56,6 +65,4 @@ class SignatureController {
         model.addAttribute("signature", signatureService.findOne(id))
 		"signature/signatureView"
     }
-
-
 }

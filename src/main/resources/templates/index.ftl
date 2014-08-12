@@ -2,11 +2,20 @@
 <html lang="en">
 	<head id="head">
 		<title>Landing Page</title>
-        <#include "stubs/header.ftl">
+        <#include "stubs/header.ftl"/>
 	</head>
 	<body id="body">
 
-		<#include "stubs/navbar.ftl">
+		<#include "stubs/navbar.ftl"/>
+
+		<#if emails??>
+			<div id="alert" class="col-sm-10 col-sm-offset-1">
+				<div class="alert alert-success alert-dismissable text-center">
+					<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+					An email has been sent to each of the following emails: ${emails?join(', ')}
+				</div>
+			</div>
+		</#if>
 
         <!-- content -->
         <div class="container">
@@ -48,8 +57,8 @@
         </div>
         <!-- content -->
 
-        <#include "stubs/footer.ftl">
+        <#include "stubs/footer.ftl"/>
 
-		<#include "stubs/scripts.ftl">
+		<#include "stubs/scripts.ftl"/>
 	</body>
 </html>

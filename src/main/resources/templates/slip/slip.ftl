@@ -103,7 +103,7 @@
 										<th><a href="/secure/slip?page=${(RequestParameters.page)!}&sort=samples">Samples</a></th>
 										<th>Signature</th>
 										<th></th>
-										<th>Actions</th>
+										<!--<th>Actions</th>-->
 									</tr>
 								</thead>
 								<tbody>
@@ -126,6 +126,8 @@
 													Not Signed
 												</#if>
 											</td>
+
+											<!--
 											<td>
 												<a id="notes_${slip.id}" class="notes" href="#">Notes</a>
 												<span id="notes_${slip.id}" hidden="hidden">${slip.notes}</span>
@@ -138,6 +140,8 @@
 													<i class="fa fa-trash-o"></i>
 												</a>
 											</td>
+											-->
+
 										</tr>
 									</#list>
 								</tbody>

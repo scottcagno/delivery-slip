@@ -22,9 +22,9 @@ class testController {
 	@RequestMapping("/mail")
 	@ResponseBody
 	String mail() {
-		def slip = slipService.findOne(1L)
+		def slip = slipService.findOne(200L)
 		Map<String, Object> model = new HashMap()
-		model.put("word", "testing");
+		model.put("slip", slip);
 		try{
 			mailService.sendMimeMail("test@test.com", "Test Mail", "test.ftl", model, "gregpechiro@gmail.com")
 		} catch (Exception e) {

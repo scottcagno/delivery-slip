@@ -33,7 +33,7 @@ class MailService {
 		}
 	}
 
-	def sendMimeMail(String from, String subject, String template, Map model, String... to) {
+	def sendMimeMail(String from, String subject, String template, Map map, String... to) {
 		Thread.start {
 			MimeMessage email = mailSender.createMimeMessage()
 			MimeMessageHelper helper = new MimeMessageHelper(email, true)
@@ -42,7 +42,7 @@ class MailService {
 			helper.setReplyTo(from)
 			helper.setSubject(subject)
 			Template temp = freeMarkerConfiguration.getTemplate(template)
-			String text = FreeMarkerTemplateUtils.processTemplateIntoString(temp, model)
+			String text = FreeMarkerTemplateUtils.processTemplateIntoString(temp, map)
 			helper.setText(text, true)
 			mailSender.send(email)
 		}
