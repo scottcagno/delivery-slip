@@ -16,7 +16,7 @@ apply plugin: 'groovy'
 apply plugin: 'spring-boot'
 
 jar {
-    baseName = 'spring-starter'
+    baseName = 'nei-express'
     version =  '1.0.0'
 }
 
@@ -31,6 +31,7 @@ dependencies {
     compile("org.springframework.boot:spring-boot-starter-actuator")
     compile("org.springframework.boot:spring-boot-starter-data-jpa")
     compile("org.springframework.boot:spring-boot-starter-security")
+    compile("org.springframework.boot:spring-boot-starter-remote-shell")
     compile("org.codehaus.groovy:groovy")
     compile("mysql:mysql-connector-java")
 	compile("javax.mail:mail:1.4.7")

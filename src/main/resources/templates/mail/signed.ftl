@@ -11,7 +11,7 @@
 					<p>Here are the details on your delivery</p>
 					<p>
 						<strong>
-							Signature: <a href="http://localhost:8080/signature/${slip.signature.id}/mail">Click Here</a> <br>
+							Signature: <a href="http://192.168.0.77:9001/signature/${slip.signature.id}/mail">Click Here</a> <br>
 							Signed On: ${slip.signature.completed?date} <br>
 							Signed By: ${slip.signature.signedBy} <br>
 							PO: ${slip.po} <br>

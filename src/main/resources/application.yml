@@ -9,15 +9,19 @@ spring:
     exposeRequestAttributes: true
 
 server:
-    port: 8080
+    port: 9001
     address: 127.0.0.1
 
 security:
   user:
     role: ADMIN
-    name: admin
-    password: admin
+    name: jas
+    password: nei
   enableCsrf: true
+
+endpoints:
+    shutdown: 
+        enabled: true
 
 http:
   mappers:
@@ -48,7 +52,7 @@ spring:
 
   datasource:
     driverClassName: com.mysql.jdbc.Driver
-    url: jdbc:mysql://192.168.0.77:3306/shipping?createDatabaseIfNotExist=true
+    url: jdbc:mysql://localhost:3306/nei-express?createDatabaseIfNotExist=true
     username: root
     password: root
 
