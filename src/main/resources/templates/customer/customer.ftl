@@ -87,7 +87,7 @@
                                             <td>${(customer.email)!}</td>
                                             <td>${(customer.street + ' ' + customer.city + ', ' + customer.state + ' ' + customer.zip)!}</td>
                                             <td>
-                                                <a href="/secure/customer/${(customer.id)!}" class="btn btn-xs btn-primary">
+                                                <a href="/secure/customer/${(customer.id)!}?page=${(RequestParameters.page)!}&sort=${(RequestParameters.sort)!}" class="btn btn-xs btn-primary">
                                                     <i class="fa fa-pencil"></i>
                                                 </a>
                                                 <a href="#" class="btn btn-danger btn-xs" data-id="${(customer.id)!}" data-toggle="modal" data-target="#deleteCheck">
