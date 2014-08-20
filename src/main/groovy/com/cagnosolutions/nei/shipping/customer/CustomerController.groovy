@@ -39,8 +39,15 @@ class CustomerController {
 	}
 
 	@RequestMapping(value=["/{id}"], method=[RequestMethod.GET])
-	String view(@PathVariable Long id, Model model) {
-		model.addAllAttributes([customer: customerService.findOne(id), customers: customerService.findAll()])
+	String view(@PathVariable Long id, Model model, @RequestParam(required = false) Integer page, @RequestParam(required = false) String sort) {
+		def customers = customerService.findAll(page? page-1 :0 , 20, sort?:"id")
+		page = (page? page :1)
+		def ub = (((customers.totalPages - page) >= 4)? page + 4 : customers.totalPages)
+		if (page < 6) {
+			ub = ((customers.totalPages > 10)? 10 : customers.totalPages)
+		}
+		def lb = (((ub - 9) > 0)? ub-9: 1)
+		model.addAllAttributes([customers: customers, lb: lb, ub : ub, customer : customerService.findOne(id)])
 		"customer/customer"
 	}
 
