@@ -1,14 +1,12 @@
 package com.cagnosolutions.nei.shipping.customer
 
+import groovy.transform.CompileStatic
+
 import javax.persistence.Entity
 import javax.persistence.GeneratedValue
 import javax.persistence.Id
 
-/**
- * Created by Scott Cagno.
- * Copyright Cagno Solutions. All rights reserved.
- */
-
+@CompileStatic
 @Entity
 class Customer {
 

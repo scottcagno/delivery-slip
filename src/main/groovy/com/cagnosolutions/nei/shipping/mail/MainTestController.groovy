@@ -1,17 +1,15 @@
 package com.cagnosolutions.nei.shipping.mail
 
 import com.cagnosolutions.nei.shipping.slip.SlipService
+import groovy.transform.CompileStatic
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Controller
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.ResponseBody
 
-/**
- * Created by greg on 8/8/14.
- */
-
+@CompileStatic
 @Controller
-class testController {
+class MainTestController {
 
 	@Autowired
 	SlipService slipService

@@ -1,4 +1,6 @@
 package com.cagnosolutions.nei.shipping
+
+import groovy.transform.CompileStatic
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.SpringApplication
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration
@@ -14,18 +16,15 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter
 import org.springframework.security.config.annotation.web.servlet.configuration.EnableWebMvcSecurity
+import org.springframework.security.config.http.SessionCreationPolicy
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
-
 import javax.sql.DataSource
-/**
- * Created by Scott Cagno.
- * Copyright Cagno Solutions. All rights reserved.
- */
 
-
+@Configuration
+@CompileStatic
 @ComponentScan
 @EnableJpaRepositories
 @EnableAutoConfiguration
@@ -35,6 +34,7 @@ class Application {
     }
 }
 
+@CompileStatic
 @Configuration
 class StaticMapping extends WebMvcConfigurerAdapter {
 
@@ -43,6 +43,7 @@ class StaticMapping extends WebMvcConfigurerAdapter {
     }
 }
 
+@CompileStatic
 @Configuration
 @EnableWebMvcSecurity
 class SecurityConfig extends WebSecurityConfigurerAdapter {
@@ -52,7 +53,7 @@ class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
     void configAuthentication(AuthenticationManagerBuilder auth) throws Exception {
-        auth.inMemoryAuthentication().withUser("admin").password("admin").roles("ADMIN")
+        auth.inMemoryAuthentication().withUser("jas").password("nei").roles("ADMIN")
         auth.jdbcAuthentication().dataSource(dataSource).passwordEncoder(new BCryptPasswordEncoder())
                 .usersByUsernameQuery("SELECT username, password, active FROM user WHERE username=?")
                 .authoritiesByUsernameQuery("SELECT username, role FROM user WHERE username=?")
@@ -62,9 +63,16 @@ class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.authorizeRequests().antMatchers("/secure/**").hasAnyRole("ADMIN", "USER")
         http.formLogin().loginPage("/login")
         http.logout().logoutSuccessUrl("/").logoutRequestMatcher(new AntPathRequestMatcher("/logout", "GET"))
+		http.sessionManagement()
+				.maximumSessions(900)
+				.expiredUrl("/login?expired")
+				.maxSessionsPreventsLogin(false)
+				.and()
+				.sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED)
     }
 }
 
+@CompileStatic
 @Configuration
 @PropertySource("classpath:application.yml")
 public class MailConfig {

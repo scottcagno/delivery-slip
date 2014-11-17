@@ -3,6 +3,7 @@ package com.cagnosolutions.nei.shipping.signature
 import com.cagnosolutions.nei.shipping.mail.MailService
 import com.cagnosolutions.nei.shipping.slip.Slip
 import com.cagnosolutions.nei.shipping.slip.SlipService
+import groovy.transform.CompileStatic
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Controller
 import org.springframework.ui.Model
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod
 import org.springframework.web.bind.annotation.RequestParam
 import org.springframework.web.servlet.mvc.support.RedirectAttributes
 
+@CompileStatic
 @Controller
 @RequestMapping(value = "/secure/signature")
 class SignatureController {
@@ -45,8 +47,6 @@ class SignatureController {
 			return "redirect:/secure/signature/${signature.id}"
 		}
 		List<Slip> slips = slipData.findAll(slipIds)
-		/*slips*.signature << signature
-		slipData.save slips*/
 		def emails = new ArrayList<String>()
 		Map map = new HashMap()
 		slips.collect { slip ->

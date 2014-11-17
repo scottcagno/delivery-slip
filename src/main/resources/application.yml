@@ -1,16 +1,32 @@
 spring:
-  profiles:
-    active: production
-
-
 
   freemarker:
     exposeSessionAttributes: true
-    exposeRequestAttributes: true
+
+  datasource:
+    driverClassName: com.mysql.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/delivery_slip?createDatabaseIfNotExist=true
+    username: root
+    password: root
+    maxActive: 150
+    maxIdle: 10
+    minIdle: 5
+    initialSize: 5
+    minEvictableIdleTimeMillis: 1800000
+    timeBetweenEvictionRunsMillis: 1800000
+    maxWait: 10000
+    validationQuery: SELECT 1
+    testOnBorrow: true
+    testOnReturn: true
+    testWhileIdle: true
+
+  jpa:
+    generateDdl: true
 
 server:
-    port: 8080
-    address: 0.0.0.0
+  port: 8080
+  address: 0.0.0.0
+  session-timeout: 30
 
 security:
   user:
@@ -18,43 +34,17 @@ security:
     name: jas
     password: nei
   enableCsrf: true
-
+  
 endpoints:
-    shutdown: 
-        enabled: true
+  shutdown:
+    enabled: true
 
 http:
   mappers:
     jsonPrettyPrint: true
 
 mail:
-    host: smtp.mandrillapp.com
-    port: 587
-    user: scottiecagno@gmail.com
-    pass: AyRsB5cI5H4bcrbheDKfzQ
-
----
-spring:
-  profiles: development
-
-  datasource:
-    driverClassName: org.h2.Driver
-    url: jdbc:h2:./h2data;MODE=MySQL
-    username: sa
-    password: sa
-
-  jpa:
-    generateDdl: true
-
----
-spring:
-  profiles: production
-
-  datasource:
-    driverClassName: com.mysql.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/neiexpress?createDatabaseIfNotExist=true
-    username: root
-    password: root
-
-  jpa:
-    generateDdl: true
+  host: smtp.mandrillapp.com
+  port: 587
+  user: scottiecagno@gmail.com
+  pass: AyRsB5cI5H4bcrbheDKfzQ

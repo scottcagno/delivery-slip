@@ -2,16 +2,13 @@ package com.cagnosolutions.nei.shipping.slip
 
 import com.cagnosolutions.nei.shipping.customer.CustomerService
 import com.cagnosolutions.nei.shipping.signature.SignatureService
+import groovy.transform.CompileStatic
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Controller
 import org.springframework.ui.Model
 import org.springframework.web.bind.annotation.*
 
-/**
- * Created by Scott Cagno.
- * Copyright Cagno Solutions. All rights reserved.
- */
-
+@CompileStatic
 @Controller
 @RequestMapping("/secure/slip")
 class SlipController {
@@ -25,12 +22,6 @@ class SlipController {
     @Autowired
     SignatureService signatureService
 
-    /*@RequestMapping(method = RequestMethod.GET)
-    String all(Model model, @RequestParam(required = false) String sort, @RequestParam(required = false) String order) {
-		model.addAttribute("slips", slipData.findAll(sort, order))
-        "slip/slip"
-    }*/
-
 	@RequestMapping(method = RequestMethod.GET)
 	Object all(Model model, @RequestParam(required = false) Integer page, @RequestParam(required = false) String sort) {
 		def slips = slipService.findAll(page? page-1 :0 , 20, sort?:"id")
@@ -43,6 +34,7 @@ class SlipController {
 		model.addAllAttributes([slips: slips, lb: lb, ub : ub])
 		"slip/slip"
 	}
+
     @RequestMapping(method = RequestMethod.POST)
     String addOrEdit(Slip slip) {
         if(slip.customer != null)

@@ -1,4 +1,6 @@
 package com.cagnosolutions.nei.shipping.slip
+
+import groovy.transform.CompileStatic
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.PageRequest
@@ -9,11 +11,8 @@ import org.springframework.data.jpa.repository.Query
 import org.springframework.data.repository.query.Param
 import org.springframework.stereotype.Repository
 import org.springframework.stereotype.Service
-/**
- * Created by Scott Cagno.
- * Copyright Cagno Solutions. All rights reserved.
- */
 
+@CompileStatic
 @Service
 class SlipService {
 
@@ -75,6 +74,7 @@ class SlipService {
     }
 }
 
+@CompileStatic
 @Repository
 interface SlipRepository extends JpaRepository<Slip, Long> {
     @Query("SELECT s FROM Slip s WHERE s.customer.id=:id")
