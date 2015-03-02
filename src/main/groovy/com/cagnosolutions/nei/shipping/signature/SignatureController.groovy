@@ -53,8 +53,8 @@ class SignatureController {
 			slip.signature = signature
 			def savedSlip = slipData.save slip
 			map.put("slip", savedSlip)
-			mailService.sendMimeMail("test@test.com", "Slip Accepted", "mail/signed.ftl", map, slip.customer.email)
-			emails.add(slip.customer.email)
+			mailService.sendMimeMail("test@test.com", "Slip Accepted", "mail/signed.ftl", map, slip.email)
+			emails.add(slip.email)
 		}
 		attr.addFlashAttribute("emails", emails)
 		"redirect:/"
