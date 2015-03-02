@@ -18,7 +18,7 @@ class SignatureService {
         repo.findAll(new PageRequest(page, size, Sort.Direction.ASC, fields))
     }*/
 
-    Signature findOne(Long id) {
+    Signature findOne(Integer id) {
         repo.findOne(id)
     }
 
@@ -26,7 +26,7 @@ class SignatureService {
         repo.save(sig)
     }
 
-    def delete(Long id) {
+    def delete(Integer id) {
         repo.delete(id)
     }
 

@@ -47,13 +47,13 @@ class SlipController {
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    String view(Model model, @PathVariable Long id) {
+    String view(Model model, @PathVariable Integer id) {
         model.addAllAttributes([slips:slipService.findAll(), slip:slipService.findOne(id)])
         "slip/slip"
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.POST)
-    String delete(@PathVariable Long id) {
+    String delete(@PathVariable Integer id) {
         slipService.delete id
         "redirect:/secure/slip"
     }

@@ -16,7 +16,7 @@ class Slip {
 
     @Id
     @GeneratedValue
-    Long id
+    Integer id
 
 	@Type(type = "date")
     Date created
@@ -30,9 +30,20 @@ class Slip {
 	@Column(name="order_num")
 	Integer jobNumber
 
-    Integer sort, quantity, cartons, samples
-	Short complete, mobile, selected
-    String jobName, po, notes, phone, address, city, state, zip
-	String customer, contact, envelope, email, hash
+	@Column(columnDefinition = "TINYINT(1)")
+	Short complete
+
+	@Column(columnDefinition = "TINYINT(1)")
+	Short mobile
+
+	@Column(columnDefinition = "TINYINT(1)")
+	Short selected
+
+	@Column(columnDefinition = "longtext")
+	String notes
+
+    Integer sort, quantity
+    String jobName, po, phone, address, city, state, zip, samples
+	String customer, contact, envelope, email, hash, cartons
 
 }

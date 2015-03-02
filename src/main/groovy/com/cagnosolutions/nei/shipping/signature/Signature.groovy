@@ -12,12 +12,13 @@ class Signature {
 
     @Id
     @GeneratedValue
-    Long id
+    Integer id
 
     Date completed
-
+	
+	@Column(name="signature")
     String signedBy
 
-	@Column(length = 500000)
+	@Column(length = 500000, name="signature_bin")
     String signature
 }

@@ -17,7 +17,7 @@ class SlipService {
         repo.findAll()
     }
 
-	List<Slip> findAll(Iterable<Long> slipIds) {
+	List<Slip> findAll(Iterable<Integer> slipIds) {
 		repo.findAll(slipIds)
 	}
 
@@ -39,7 +39,7 @@ class SlipService {
 		repo.findAll(new Sort(Sort.Direction.fromString(order), sort))
 	}
 
-    List<Slip> findAllForCustomer(Long id) {
+    List<Slip> findAllForCustomer(Integer id) {
         repo.findAllForCustomer(id)
     }*/
 
@@ -47,7 +47,7 @@ class SlipService {
 		repo.findAllValid()
 	}
 
-    Slip findOne(Long id) {
+    Slip findOne(Integer id) {
         repo.findOne(id)
     }
 
@@ -59,7 +59,7 @@ class SlipService {
 		repo.save(slips)
 	}
 
-    def delete(Long id) {
+    def delete(Integer id) {
         repo.delete(id)
     }
 

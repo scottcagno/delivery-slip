@@ -6,5 +6,5 @@ import org.springframework.stereotype.Repository
 
 @CompileStatic
 @Repository
-interface SignatureRepository extends JpaRepository<Signature, Long> {
+interface SignatureRepository extends JpaRepository<Signature, Integer> {
 }

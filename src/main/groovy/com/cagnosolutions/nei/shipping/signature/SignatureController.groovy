@@ -1,6 +1,5 @@
 package com.cagnosolutions.nei.shipping.signature
-
-import com.cagnosolutions.nei.shipping.mail.MailService
+import com.cagnosolutions.nei.shipping.email.EmailService
 import com.cagnosolutions.nei.shipping.slip.Slip
 import com.cagnosolutions.nei.shipping.slip.SlipService
 import groovy.transform.CompileStatic
@@ -25,8 +24,11 @@ class SignatureController {
 	@Autowired
 	SlipService slipData
 
+	/*@Autowired
+	MailService mailService*/
+	
 	@Autowired
-	MailService mailService
+	EmailService emailService
 
 	@RequestMapping(method = RequestMethod.GET)
 	String view() {
@@ -34,13 +36,13 @@ class SignatureController {
 	}
 
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
-	String selectSlip(Model model, @PathVariable Long id) {
+	String selectSlip(Model model, @PathVariable Integer id) {
 		model.addAllAttributes([signature: signatureService.findOne(id), slips: slipData.findAllValid()])
 		"signature/signatureSlip"
 	}
 
 	@RequestMapping(method = RequestMethod.POST)
-	String add(Signature signature, @RequestParam(value = "slipIds", required = false) List<Long> slipIds, RedirectAttributes attr) {
+	String add(Signature signature, @RequestParam(value = "slipIds", required = false) List<Integer> slipIds, RedirectAttributes attr) {
 		signature.completed = new Date()
 		signature = signatureService.save signature
 		if (slipIds == null) {
@@ -53,7 +55,8 @@ class SignatureController {
 			slip.signature = signature
 			def savedSlip = slipData.save slip
 			map.put("slip", savedSlip)
-			mailService.sendMimeMail("test@test.com", "Slip Accepted", "mail/signed.ftl", map, slip.email)
+			//mailService.sendMimeMail("test@test.com", "Slip Accepted", "mail/signed.ftl", map, slip.email)
+			emailService.send("test@test.com", slip.email, "", "Slip Accepted", "Slip Accepted", "mail/signed.ftl", map)
 			emails.add(slip.email)
 		}
 		attr.addFlashAttribute("emails", emails)
@@ -61,7 +64,7 @@ class SignatureController {
 	}
 
     @RequestMapping(value = "/{id}/view", method = RequestMethod.GET)
-    String viewOne(@PathVariable Long id, Model model) {
+    String viewOne(@PathVariable Integer id, Model model) {
         model.addAttribute("signature", signatureService.findOne(id))
 		"signature/signatureView"
     }
