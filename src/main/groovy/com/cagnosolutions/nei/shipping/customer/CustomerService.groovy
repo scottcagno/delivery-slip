@@ -42,8 +42,3 @@ class CustomerService {
 
 }
 
-@CompileStatic
-@Repository
-interface CustomerRepository extends JpaRepository<Customer, Long> {
-
-}

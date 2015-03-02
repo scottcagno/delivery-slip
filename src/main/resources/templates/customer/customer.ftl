@@ -54,16 +54,18 @@
                     <div class="panel-heading">Current Customers</div>
                     <div class="panel-body">
 						<div id="pagenator" class="text-center">
-							<#assign prev = ((customers.firstPage) ? string('1', customers.number))/>
-							<#assign next = ((customers.lastPage) ? string (customers.number +1, customers.number + 2)) />
+							<#assign isFirst = (customers.number + 1) == 1/>
+							<#assign isLast = (customers.number + 1) == customers.totalPages/>
+							<#assign prev = ((isFirst) ? string('1', customers.number))/>
+							<#assign next = ((isLast) ? string (customers.number +1, customers.number + 2)) />
 							<ul class="pagination">
-								<li ${(customers.firstPage)?string('class="disabled"', '')}><a href="/secure/customer?page=1&sort=${(RequestParameters.sort)!}">First</a></li>
-								<li ${(customers.firstPage)?string('class="disabled"', '')}><a href="/secure/customer?page=${prev}&sort=${(RequestParameters.sort)!}">&laquo;</a></li>
+								<li class="${(isFirst)?string('disabled', '')}"><a href="/secure/customer?page=1&sort=${(RequestParameters.sort)!}">First</a></li>
+								<li class="${(isFirst)?string('disabled', '')}"><a href="/secure/customer?page=${prev}&sort=${(RequestParameters.sort)!}">&laquo;</a></li>
 								<#list lb..ub as n>
-									<li ${(n == customers.number + 1)?string('class="active"', '')}><a href="/secure/customer?page=${n}&sort=${(RequestParameters.sort)!}">${n}</a></li>
+									<li class="${(n == customers.number + 1)?string('active', '')}"><a href="/secure/customer?page=${n}&sort=${(RequestParameters.sort)!}">${n}</a></li>
 								</#list>
-								<li ${(customers.lastPage)?string('class="disabled"', '')}><a href="/secure/customer?page=${next}&sort=${(RequestParameters.sort)!}">&raquo;</a></li>
-								<li ${(customers.lastPage)?string('class="disabled"', '')}><a href="/secure/customer?page=${customers.totalPages}&sort=${(RequestParameters.sort)!}">Last</a></li>
+								<li class="${(isLast)?string('disabled', '')}"><a href="/secure/customer?page=${next}&sort=${(RequestParameters.sort)!}">&raquo;</a></li>
+								<li class="${(isLast)?string('disabled', '')}"><a href="/secure/customer?page=${customers.totalPages}&sort=${(RequestParameters.sort)!}">Last</a></li>
 							</ul>
 						</div>
                         <div class="table-responsive">

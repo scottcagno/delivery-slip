@@ -42,7 +42,3 @@ class SignatureService {
 
 }
 
-@CompileStatic
-@Repository
-interface SignatureRepository extends JpaRepository<Signature, Long> {
-}

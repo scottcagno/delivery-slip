@@ -76,16 +76,18 @@
 					<div class="panel-heading">Current Slips</div>
 					<div class="panel-body">
 						<div id="pagenator" class="text-center">
-							<#assign prev = ((slips.firstPage) ? string('1', slips.number))/>
-							<#assign next = ((slips.lastPage) ? string (slips.number +1, slips.number + 2)) />
+							<#assign isFirst = (slips.number + 1) == 1/>
+							<#assign isLast = (slips.number + 1) == slips.totalPages/>
+							<#assign prev = ((isFirst) ? string('1', slips.number))/>
+							<#assign next = ((isLast) ? string (slips.number +1, slips.number + 2)) />
 							<ul class="pagination">
-								<li ${(slips.firstPage)?string('class="disabled"', '')}><a href="/secure/slip?page=1&sort=${(RequestParameters.sort)!}">First</a></li>
-								<li ${(slips.firstPage)?string('class="disabled"', '')}><a href="/secure/slip?page=${prev}&sort=${(RequestParameters.sort)!}">&laquo;</a></li>
+								<li class="${(isFirst)?string('disabled', '')}"><a href="/secure/slip?page=1&sort=${(RequestParameters.sort)!}">First</a></li>
+								<li class="${(isFirst)?string('disabled', '')}"><a href="/secure/slip?page=${prev}&sort=${(RequestParameters.sort)!}">&laquo;</a></li>
 								<#list lb..ub as n>
-									<li ${(n == slips.number + 1)?string('class="active"', '')}><a href="/secure/slip?page=${n}&sort=${(RequestParameters.sort)!}">${n}</a></li>
+									<li class="${(n == slips.number + 1)?string('active', '')}"><a href="/secure/slip?page=${n}&sort=${(RequestParameters.sort)!}">${n}</a></li>
 								</#list>
-								<li ${(slips.lastPage)?string('class="disabled"', '')}><a href="/secure/slip?page=${next}&sort=${(RequestParameters.sort)!}">&raquo;</a></li>
-								<li ${(slips.lastPage)?string('class="disabled"', '')}><a href="/secure/slip?page=${slips.totalPages}&sort=${(RequestParameters.sort)!}">Last</a></li>
+								<li class="${(isLast)?string('disabled', '')}"><a href="/secure/slip?page=${next}&sort=${(RequestParameters.sort)!}">&raquo;</a></li>
+								<li class="${(isLast)?string('disabled', '')}"><a href="/secure/slip?page=${slips.totalPages}&sort=${(RequestParameters.sort)!}">Last</a></li>
 							</ul>
 						</div>
 						<div class="table-responsive">
