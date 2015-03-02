@@ -1,12 +1,6 @@
 package com.cagnosolutions.nei.shipping.signature
-
 import groovy.transform.CompileStatic
 import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.data.domain.Page
-import org.springframework.data.domain.PageRequest
-import org.springframework.data.domain.Sort
-import org.springframework.data.jpa.repository.JpaRepository
-import org.springframework.stereotype.Repository
 import org.springframework.stereotype.Service
 
 @CompileStatic
@@ -20,9 +14,9 @@ class SignatureService {
         repo.findAll()
     }
 
-    Page<Signature> findAll(int page, int size, String... fields) {
+    /*Page<Signature> findAll(int page, int size, String... fields) {
         repo.findAll(new PageRequest(page, size, Sort.Direction.ASC, fields))
-    }
+    }*/
 
     Signature findOne(Long id) {
         repo.findOne(id)

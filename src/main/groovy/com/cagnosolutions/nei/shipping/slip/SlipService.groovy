@@ -1,15 +1,9 @@
 package com.cagnosolutions.nei.shipping.slip
-
 import groovy.transform.CompileStatic
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.PageRequest
-import org.springframework.data.domain.Pageable
 import org.springframework.data.domain.Sort
-import org.springframework.data.jpa.repository.JpaRepository
-import org.springframework.data.jpa.repository.Query
-import org.springframework.data.repository.query.Param
-import org.springframework.stereotype.Repository
 import org.springframework.stereotype.Service
 
 @CompileStatic
@@ -31,7 +25,7 @@ class SlipService {
         repo.findAll(new PageRequest(page, size, Sort.Direction.ASC, fields))
     }
 
-	Page<Slip> findAll(Pageable pageable) {
+	/*Page<Slip> findAll(Pageable pageable) {
 		repo.findAll(pageable)
 	}
 
@@ -47,7 +41,7 @@ class SlipService {
 
     List<Slip> findAllForCustomer(Long id) {
         repo.findAllForCustomer(id)
-    }
+    }*/
 
 	List<Slip> findAllValid() {
 		repo.findAllValid()

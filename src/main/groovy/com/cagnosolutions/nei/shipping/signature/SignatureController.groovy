@@ -60,7 +60,7 @@ class SignatureController {
 		"redirect:/"
 	}
 
-    @RequestMapping(value="/{id}/view", method = RequestMethod.GET)
+    @RequestMapping(value = "/{id}/view", method = RequestMethod.GET)
     String viewOne(@PathVariable Long id, Model model) {
         model.addAttribute("signature", signatureService.findOne(id))
 		"signature/signatureView"

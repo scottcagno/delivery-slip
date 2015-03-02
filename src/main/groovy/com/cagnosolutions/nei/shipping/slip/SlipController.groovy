@@ -23,7 +23,7 @@ class SlipController {
     SignatureService signatureService
 
 	@RequestMapping(method = RequestMethod.GET)
-	Object all(Model model, @RequestParam(required = false) Integer page, @RequestParam(required = false) String sort) {
+	String all(Model model, @RequestParam(required = false) Integer page, @RequestParam(required = false) String sort) {
 		def slips = slipService.findAll(page? page-1 :0 , 20, sort?:"id")
 		page = (page? page :1)
 		def ub = (((slips.totalPages - page) >= 4)? page + 4 : slips.totalPages)

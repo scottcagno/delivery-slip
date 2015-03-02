@@ -17,7 +17,7 @@ class CustomerController {
 	@Autowired
 	CustomerService customerService
 
-	@RequestMapping(method=[RequestMethod.GET])
+	@RequestMapping(method = RequestMethod.GET)
 	String viewAll(Model model, @RequestParam(required = false) Integer page, @RequestParam(required = false) String sort) {
 		def customers = customerService.findAll(page? page-1 :0 , 20, sort?:"id")
 		page = (page? page :1)
@@ -30,13 +30,13 @@ class CustomerController {
 		"customer/customer"
 	}
 
-	@RequestMapping(method=[RequestMethod.POST])
+	@RequestMapping(method = RequestMethod.POST)
 	String addOrEdit(Customer customer) {
 		customerService.save customer
 		"redirect:/secure/customer"
 	}
 
-	@RequestMapping(value=["/{id}"], method=[RequestMethod.GET])
+	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
 	String view(@PathVariable Long id, Model model, @RequestParam(required = false) Integer page, @RequestParam(required = false) String sort) {
 		def customers = customerService.findAll(page? page-1 :0 , 20, sort?:"id")
 		page = (page? page :1)
@@ -49,7 +49,7 @@ class CustomerController {
 		"customer/customer"
 	}
 
-	@RequestMapping(value=["/{id}"], method=[RequestMethod.POST])
+	@RequestMapping(value = "/{id}", method = RequestMethod.POST)
 	String delete(@PathVariable Long id) {
 		customerService.delete id
 		"redirect:/secure/customer"
