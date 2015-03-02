@@ -37,8 +37,8 @@ class SlipController {
 
     @RequestMapping(method = RequestMethod.POST)
     String addOrEdit(Slip slip) {
-        if(slip.customer != null)
-            slip.customer = customerService.findOne(slip.customer.id)
+/*        if(slip.customer != null)
+            slip.customer = customerService.findOne(slip.customer.id)*/
         if(slip.signature != null)
             slip.signature = signatureService.findOne(slip.signature.id)
 		Date date = new Date()
