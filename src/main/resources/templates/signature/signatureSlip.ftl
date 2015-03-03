@@ -9,23 +9,22 @@
 		<#include "../stubs/navbar.ftl"/>
 
 		<!-- content -->
-		<div id="content" class="container">
-			<div id="" class="col-sm-12" >
+		<div class="container">
+			<div id="content" class="col-sm-12">
 				<div class="col-lg-offset-3 col-lg-6">
-					<img class="img-responsive text-center" src="${signature.signature}">
+					<img class="img-responsive text-center" src="${signature.signature_bin}">
 					<br><br>
-					<form id="signatureForm" class="form-inline test-center" role="form" method="post" action="/secure/signature">
+					<form id="signatureForm" class="test-center" role="form" method="post" action="/secure/signature/${signature.id}">
+						<label id="error" class="text-danger hide">* Signed By is required</label>
 						<div class="input-group">
 							<span class="input-group-addon">
 								Signed By:
 							</span>
-							<input type="text" id="signedBy" name="signedBy" class="form-control" required="true" />
+							<input type="text" id="signedBy" name="signedBy" class="form-control" required="true"/>
 							<span class="input-group-btn">
-								<button id="done" class="btn btn-md btn-primary" type="submit">Complete</button>
+								<button id="done" class="btn btn-md btn-primary" type="submit" disabled="disabled">Complete</button>
 							</span>
 						</div>
-						<input type="hidden"  name="signature" value="${signature.signature}">
-						<input type="hidden"  name="id" value="${signature.id}">
 						<input type="hidden"  id="slipIds" name="slipIds">
 						<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 					</form>
@@ -36,7 +35,7 @@
 								<div class="col-xs-10">
 									<h4 class="list-group-item-heading">${slip.jobName}</h4>
 									<p class="list-group-item-text">
-										${slip.customer.contact}
+										${slip.customer}
 									</p>
 								</div>
 								<button id="addSlip" data-added="0" data-slipId="${slip.id}" class="btn-default btn">Add</button>
@@ -45,6 +44,15 @@
 					</div>
 				</div>
 			</div>
+			<!-- add card spinner -->
+			<div id="addSpinner" class="text-center hide">
+				<p class="lead">
+					<strong>Adding signature to slips...</strong><br/>
+				</p>
+				<i class="fa fa-5x fa-circle-o-notch fa-spin"></i>
+				<p class="lead">One moment please.</p>
+			</div>
+			<!-- add card spinner -->
 		</div>
 		<!-- content -->
 
@@ -61,18 +69,28 @@
 						this.innerText = "Added";
 						this.setAttribute('class', 'btn-primary btn');
 						this.setAttribute('data-added', '1');
+						$('button[id="done"]').removeAttr('disabled');
 					} else {
 						slipId = removeValue(slipId, this.getAttribute('data-slipId'));
 						this.innerText = "Add";
 						this.setAttribute('class', 'btn-default btn');
 						this.setAttribute('data-added', '0');
+						if (slipId.length < 1) {
+							$('button[id="done"]').attr('disabled', 'disabled');
+						};
 					}
 				});
 
 				$('button[id="done"]').click(function(e){
 					e.preventDefault();
-					$('input[id="slipIds"]').val(slipId);
-					$('form[id="signatureForm"]').submit();
+					if ($('input[id="signedBy"]').val() == '') {
+						$('label[id="error"]').removeClass('hide')
+					} else {
+						$('input[id="slipIds"]').val(slipId);
+						$('div[id="content"]').addClass('hide');
+						$('div[id="addSpinner"]').removeClass('hide');
+						$('form[id="signatureForm"]').submit();
+					}
 				});
 			});
 		</script>

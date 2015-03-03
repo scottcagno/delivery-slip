@@ -130,11 +130,11 @@
 													</#if>
 												</td>
 	
-												<!--
 												<td>
 													<a id="notes_${slip.id}" class="notes" href="#">Notes</a>
-													<span id="notes_${slip.id}" hidden="hidden">${slip.notes}</span>
+													<span id="notes_${slip.id}" hidden="hidden">${slip.notes!}</span>
 												</td>
+												<!--
 												<td>
 													<a href="/secure/slip/${(slip.id)!}" class="btn btn-xs btn-primary">
 														<i class="fa fa-pencil"></i>

@@ -55,8 +55,8 @@
 		<div id="content" class="container">
 			<div class="row">
 				<div class="col-xs-12">
-					<form class="form-inline col-xs-6" id="signatureForm" role="form" method="post" action="">
-						<input type="hidden" id="signature" name="signature"/>
+					<form class="form-inline col-xs-6" id="signatureForm" role="form" method="post" action="/secure/signature">
+						<input type="hidden" id="signature" name="signature_bin"/>
 						<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 					</form>
 				</div>

@@ -20,5 +20,5 @@ class Signature {
     String signedBy
 
 	@Column(length = 500000, name="signature_bin")
-    String signature
+    String signature_bin
 }

@@ -25,7 +25,13 @@ class EmailService {
 		def data = new MultivaluedMapImpl()
 		client.addFilter new HTTPBasicAuthFilter("api", AUTH_KEY)
 		data.add "from", from
-		data.add "to", to
+		if (to.contains(",")) {
+			to.replaceAll(", ", ",").split(",").each {
+				data.add "to", it
+			}
+		} else {
+			data.add "to", to
+		}
 		if (bcc != null) data.add "bcc", bcc
 		data.add "subject", subject
 		data.add "text", text

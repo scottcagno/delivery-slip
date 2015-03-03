@@ -40,7 +40,7 @@ class SlipController {
     String edit(Slip slip, RedirectAttributes attr) {
 		def existingSlip = slipService.findOne slip.id
 		slipService.mergeProperties(slip, existingSlip)
-        slipService.save slip
+        slipService.save existingSlip
 		attr.addFlashAttribute("alertSuccess", "Successfully updated customer")
         "redirect:/secure/slip"
     }

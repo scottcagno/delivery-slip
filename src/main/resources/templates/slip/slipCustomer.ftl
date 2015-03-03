@@ -17,7 +17,7 @@
 					<div class="panel-body">
 						<form role="form" method="post" action="/secure/slip">
 							<div class="form-group">
-								<input type="text" id="company" name="company" value="${(slip.customer)!}" class="form-control" placeholder="Company" required="true" autofocus="true"/>
+								<input type="text" id="company" name="customer" value="${(slip.customer)!}" class="form-control" placeholder="Company" required="true" autofocus="true"/>
 							</div>
 							<div class="form-group">
 								<input type="text" id="contact" name="contact" value="${(slip.contact)!}" class="form-control" placeholder="Contact" required="true"/>
@@ -29,7 +29,7 @@
 								<input type="text" id="email" name="email" value="${(slip.email)!}" class="form-control" placeholder="Email" required="true"/>
 							</div>
 							<div class="form-group">
-								<input type="text" id="street" name="street" value="${(slip.address)!}" class="form-control" placeholder="Street" required="true"/>
+								<input type="text" id="street" name="address" value="${(slip.address)!}" class="form-control" placeholder="Street" required="true"/>
 							</div>
 							<div class="form-group">
 								<input type="text" id="city" name="city" value="${(slip.city)!}" class="form-control" placeholder="City" required="true"/>

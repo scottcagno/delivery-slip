@@ -50,6 +50,10 @@ class SlipService {
     Slip findOne(Integer id) {
         repo.findOne(id)
     }
+	
+	Slip findOneByHash(String hash) {
+		repo.findOneByHash hash
+	}
 
     Slip save(Slip slip) {
         repo.save(slip)
