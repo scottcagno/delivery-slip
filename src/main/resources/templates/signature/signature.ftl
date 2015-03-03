@@ -21,45 +21,38 @@
 				</div>
 				<div class="collapse navbar-collapse navbar-ex1-collapse">
 					<ul class="nav navbar-nav navbar-right">
-					<#--<li><a href="/secure/login?forward=customer"><i class="fa fa-user"></i> Customers</a></li>
-                    <li><a href="/secure/login?forward=slip"><i class="fa fa-truck"></i> Slips</a></li>
-                    <li><a href="/secure/login?forward=signature"><i class="fa fa-file-o"></i> New Signature</a></li>-->
-
 						<li><a href="/secure/customer"><i class="fa fa-user"></i> Customers</a></li>
 						<li><a href="/secure/slip"><i class="fa fa-truck"></i> Slips</a></li>
 						<li><a href="/secure/signature"><i class="fa fa-file-o"></i> New Signature</a></li>
-					<#--<#if authenticated??>
-                        <li><a href="/logout"><i class="fa fa-unlock"></i> Logout (${authenticated})</a></li>
-                    </#if>-->
 					</ul>
 				</div>
 			</div>
 		</div>
 
-		<#if RequestParameters.alert??>
+		<#if alert??>
 			<div id="alert" class="col-sm-10 col-sm-offset-1">
 				<div class="alert alert-info alert-dismissable">
 					<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-					${RequestParameters.alert}
+					${alert}
 				</div>
 			</div>
-		<#elseif RequestParameters.alertError??>
+		<#elseif alertError??/>
 			<div id="alert" class="col-sm-10 col-sm-offset-1">
 				<div class="alert alert-danger alert-dismissable">
 					<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-					${RequestParameters.alertError}
+					${alertError}
 				</div>
 			</div>
-		<#elseif RequestParameters.alertSuccess??>
+		<#elseif alertSuccess??/>
 			<div id="alert" class="col-sm-10 col-sm-offset-1">
 				<div class="alert alert-success alert-dismissable">
 					<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-					${RequestParameters.alertSuccess}
+					${alertSuccess}
 				</div>
 			</div>
 		</#if>
 
-		<div id="content" class="container" >
+		<div id="content" class="container">
 			<div class="row">
 				<div class="col-xs-12">
 					<form class="form-inline col-xs-6" id="signatureForm" role="form" method="post" action="">

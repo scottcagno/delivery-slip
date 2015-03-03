@@ -1,4 +1,4 @@
-package com.cagnosolutions.nei.config
+package com.cagnosolutions.nei.shipping.config
 
 import groovy.transform.CompileStatic
 import org.springframework.context.annotation.Configuration

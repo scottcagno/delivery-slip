@@ -12,4 +12,3 @@ $('a[id="accept"]').click(function() {
 	$('input[id="signature"]').val(sigdiv.jSignature('getData', 'default'));
 	$('form[id="signatureForm"]').submit()
 });
-;

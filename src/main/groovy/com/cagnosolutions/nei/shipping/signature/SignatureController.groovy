@@ -23,9 +23,6 @@ class SignatureController {
 
 	@Autowired
 	SlipService slipData
-
-	/*@Autowired
-	MailService mailService*/
 	
 	@Autowired
 	EmailService emailService
@@ -55,7 +52,6 @@ class SignatureController {
 			slip.signature = signature
 			def savedSlip = slipData.save slip
 			map.put("slip", savedSlip)
-			//mailService.sendMimeMail("test@test.com", "Slip Accepted", "mail/signed.ftl", map, slip.email)
 			emailService.send("test@test.com", slip.email, "", "Slip Accepted", "Slip Accepted", "mail/signed.ftl", map)
 			emails.add(slip.email)
 		}

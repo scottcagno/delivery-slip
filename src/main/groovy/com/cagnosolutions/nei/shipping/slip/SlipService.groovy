@@ -66,5 +66,13 @@ class SlipService {
     def delete(Slip slip) {
         repo.delete(slip)
     }
+
+	// helper method
+	static def mergeProperties(modified, original) {
+		modified.properties.each { key, value ->
+			if (original.hasProperty(key as String) && !((key as String) in ['class', 'metaClass']) && value != null)
+				original[key as String] = value
+		}
+	}
 }
 
