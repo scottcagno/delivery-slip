@@ -42,7 +42,10 @@
 							</div>
 							<input type="hidden" name="id" value="${(slip.id)!}"/>
 							<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-							<button class="btn btn-primary btn-block" type="submit">Save</button>
+							<div class="form-group">
+								<button class="btn btn-primary btn-block" type="submit">Save</button>
+							</div>
+							<a href="/secure/slip" class="btn btn-block btn-default">Cancel</a>
 						</form>
 					</div>
 				</div>

@@ -14,24 +14,20 @@ class SignatureService {
         repo.findAll()
     }
 
-    /*Page<Signature> findAll(int page, int size, String... fields) {
-        repo.findAll(new PageRequest(page, size, Sort.Direction.ASC, fields))
-    }*/
-
     Signature findOne(Integer id) {
-        repo.findOne(id)
+        repo.findOne id
     }
 
-    Signature save(Signature sig) {
-        repo.save(sig)
+    Signature save(Signature signature) {
+        repo.save signature
     }
 
     def delete(Integer id) {
-        repo.delete(id)
+        repo.delete id
     }
 
-    def delete(Signature sig) {
-        repo.delete(sig)
+    def delete(Signature signature) {
+        repo.delete signature
     }
 
 }

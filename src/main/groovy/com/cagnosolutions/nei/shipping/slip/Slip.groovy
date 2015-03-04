@@ -21,11 +21,8 @@ class Slip {
 	@Type(type = "date")
     Date created
 
-    /*@OneToOne
-    Customer customer*/
-
-    @OneToOne
-    Signature signature
+	@OneToOne
+	Signature signature
 
 	@Column(name="order_num")
 	Integer jobNumber

@@ -8,8 +8,6 @@ import org.springframework.stereotype.Repository
 @CompileStatic
 @Repository
 interface SlipRepository extends JpaRepository<Slip, Integer> {
-	/*@Query("SELECT s FROM Slip s WHERE s.customer.id=:id")
-	List<Slip> findAllForCustomer(@Param("id") Long id)*/
 
 	@Query("SELECT s FROM Slip s WHERE s.mobile=1 AND s.signature=NULL AND s.created=CURRENT_DATE")
 	List<Slip> findAllValid()

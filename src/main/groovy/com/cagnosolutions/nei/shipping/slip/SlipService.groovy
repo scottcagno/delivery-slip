@@ -18,37 +18,19 @@ class SlipService {
     }
 
 	List<Slip> findAll(Iterable<Integer> slipIds) {
-		repo.findAll(slipIds)
+		repo.findAll slipIds
 	}
 
     Page<Slip> findAll(int page, int size, String... fields) {
         repo.findAll(new PageRequest(page, size, Sort.Direction.ASC, fields))
     }
 
-	/*Page<Slip> findAll(Pageable pageable) {
-		repo.findAll(pageable)
-	}
-
-	List<Slip> findAll(String sort, String order) {
-		if ((sort == null && order == null) || sort == null) {
-			return repo.findAll()
-		}
-		if (order == null || !order.toLowerCase().startsWith("asc") || !order.toLowerCase().startsWith("desc")) {
-			return  repo.findAll(new Sort(Sort.Direction.fromString("ASC"), sort))
-		}
-		repo.findAll(new Sort(Sort.Direction.fromString(order), sort))
-	}
-
-    List<Slip> findAllForCustomer(Integer id) {
-        repo.findAllForCustomer(id)
-    }*/
-
 	List<Slip> findAllValid() {
 		repo.findAllValid()
 	}
 
     Slip findOne(Integer id) {
-        repo.findOne(id)
+        repo.findOne id
     }
 	
 	Slip findOneByHash(String hash) {
@@ -56,19 +38,19 @@ class SlipService {
 	}
 
     Slip save(Slip slip) {
-        repo.save(slip)
+        repo.save slip
     }
 
 	List<Slip> save(List<Slip> slips) {
-		repo.save(slips)
+		repo.save slips
 	}
 
     def delete(Integer id) {
-        repo.delete(id)
+        repo.delete id
     }
 
     def delete(Slip slip) {
-        repo.delete(slip)
+        repo.delete slip
     }
 
 	// helper method

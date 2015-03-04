@@ -44,10 +44,11 @@
 						<p>Samples: ${slip.samples}</p>
 					</div>
 					<div class="col-lg-6">
-						<h3><u>Shipping Notes:</u></h3>
 						<p>
-							${slip.notes}
-						</p>
+							<h3><u>Shipping Notes:</u></h3>
+							<p>
+								${slip.notes}
+							</p>
 						</p>
 					</div>
 				</div>
@@ -61,8 +62,6 @@
 			</div>
 		</div>
 		<!-- content -->
-
-
 
 		<#include "../stubs/scripts.ftl"/>
 
