@@ -13,12 +13,12 @@
 					<p>
 						<strong>
 							Slip: <a href="${global.host}/slip/${slip.hash}">Click Here</a> <br>
-							Signed On: ${slip.signature.completed?date} <br>
-							Signed By: ${slip.signature.signedBy} <br>
-							PO: ${slip.po} <br>
-							Quantity: ${slip.quantity} <br>
-							Cartons: ${slip.cartons} <br>
-							Samples: ${slip.samples} <br>
+							Signed On: ${slip.signature.completed?date!} <br>
+							Signed By: ${slip.signature.signedBy!} <br>
+							PO: ${slip.po!} <br>
+							Quantity: ${slip.quantity!} <br>
+							Cartons: ${slip.cartons!} <br>
+							Samples: ${slip.samples!} <br>
 						</strong>
 					</p>
 					<p>

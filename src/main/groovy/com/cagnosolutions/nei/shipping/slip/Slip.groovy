@@ -43,4 +43,8 @@ class Slip {
     String jobName, po, phone, address, city, state, zip, samples
 	String customer, contact, envelope, email, hash, cartons
 
+	String toString() {
+		URLEncoder.encode("${address} ${city}", "UTF-8")
+	}
+
 }

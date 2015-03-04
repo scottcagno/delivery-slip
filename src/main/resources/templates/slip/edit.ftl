@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 	<head id="head">
-		<title>Slips</title>
+		<title>Slip</title>
 		<#include "../stubs/header.ftl"/>
 	</head>
 	<body id="body">
@@ -13,7 +13,7 @@
 			<!-- view all -->
 			<div class="col-lg-offset-4 col-sm-4">
 				<div class="panel panel-default">
-					<div class="panel-heading">Slip ${slip.id}'s Customer</div>
+					<div class="panel-heading">Slip ${slip.id?c}'s Customer</div>
 					<div class="panel-body">
 						<form role="form" method="post" action="/secure/slip">
 							<div class="form-group">
@@ -40,7 +40,13 @@
 							<div class="form-group">
 								<input type="text" id="zip" name="zip" value="${(slip.zip)!}" class="form-control" placeholder="Zip" required="true"/>
 							</div>
-							<input type="hidden" name="id" value="${(slip.id)!}"/>
+							<div class="form-group">
+								<input type="text" id="cartons" name="cartons" value="${(slip.cartons)!}" class="form-control" placeholder="Pieces" required="true"/>
+							</div>
+							<div class="form-group">
+								<textarea class="form-control" style="resize:none;" name="notes" id="notes" rows="5" placeholder="Notes">${(slip.notes)!}</textarea>
+							</div>
+							<input type="hidden" name="id" value="${(slip.id?c)!}"/>
 							<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 							<div class="form-group">
 								<button class="btn btn-primary btn-block" type="submit">Save</button>

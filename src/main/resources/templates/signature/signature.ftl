@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 	<head id="head">
-		<title>Template</title>
+		<title>Signature</title>
 		<#include "../stubs/header.ftl" />
 	</head>
 

@@ -2,6 +2,7 @@ package com.cagnosolutions.nei.shipping.slip
 
 import groovy.transform.CompileStatic
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.data.domain.Sort.Direction
 import org.springframework.stereotype.Controller
 import org.springframework.ui.Model
 import org.springframework.web.bind.annotation.PathVariable
@@ -20,7 +21,8 @@ class SlipController {
 
 	@RequestMapping(method = RequestMethod.GET)
 	String all(Model model, @RequestParam(required = false) Integer page, @RequestParam(required = false) String sort) {
-		def slips = slipService.findAll(page? page-1 :0 , 20, sort?:"id")
+		def direction = (sort == "id" || sort == null || sort == "" || sort == "created") ? Direction.DESC : Direction.ASC
+		def slips = slipService.findAll(page? page-1 :0 , 20, direction, sort?:"created")
 		page = (page ? page : 1)
 		def ub = (((slips.totalPages - page) >= 4) ? page + 4 : slips.totalPages)
 		if (page < 6) {
@@ -43,7 +45,7 @@ class SlipController {
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     String view(Model model, @PathVariable Integer id) {
         model.addAttribute("slip", slipService.findOne(id))
-        "slip/slipCustomer"
+        "slip/edit"
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.POST)

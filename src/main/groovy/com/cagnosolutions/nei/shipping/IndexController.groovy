@@ -1,5 +1,4 @@
 package com.cagnosolutions.nei.shipping
-
 import com.cagnosolutions.nei.shipping.slip.SlipService
 import groovy.transform.CompileStatic
 import org.springframework.beans.factory.annotation.Autowired

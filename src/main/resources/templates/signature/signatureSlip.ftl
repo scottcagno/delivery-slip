@@ -14,7 +14,7 @@
 				<div class="col-lg-offset-3 col-lg-6">
 					<img class="img-responsive text-center" src="${signature.signature_bin}">
 					<br><br>
-					<form id="signatureForm" class="test-center" role="form" method="post" action="/secure/signature/${signature.id}">
+					<form id="signatureForm" class="test-center" role="form" method="post" action="/secure/signature/${signature.id?c}">
 						<label id="error" class="text-danger hide">* Signed By is required</label>
 						<div class="input-group">
 							<span class="input-group-addon">
@@ -33,12 +33,12 @@
 						<#list slips as slip>
 							<div class="list-group-item">
 								<div class="col-xs-10">
-									<h4 class="list-group-item-heading">${slip.jobName}</h4>
+									<h4 class="list-group-item-heading">${slip.customer}</h4>
 									<p class="list-group-item-text">
-										${slip.customer}
+										${slip.jobName}
 									</p>
 								</div>
-								<button id="addSlip" data-added="0" data-slipId="${slip.id}" class="btn-default btn">Add</button>
+								<button id="addSlip" data-added="0" data-slipId="${slip.id?c}" class="btn-default btn">Add</button>
 							</div>
 						</#list>
 					</div>

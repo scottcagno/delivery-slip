@@ -22,7 +22,7 @@ class SignatureController {
 	SignatureService signatureService
 
 	@Autowired
-	SlipService slipData
+	SlipService slipService
 	
 	@Autowired
 	EmailService emailService
@@ -40,7 +40,7 @@ class SignatureController {
 	
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
 	String selectSlip(Model model, @PathVariable Integer id) {
-		model.addAllAttributes([signature: signatureService.findOne(id), slips: slipData.findAllValid()])
+		model.addAllAttributes([signature: signatureService.findOne(id), slips: slipService.findAllValid()])
 		"signature/signatureSlip"
 	}
 
@@ -55,18 +55,19 @@ class SignatureController {
 		signature.completed = new Date()
 		signature.signedBy = signedBy
 		signature = signatureService.save signature
-		List<Slip> slips = slipData.findAll slipIds
+		List<Slip> slips = slipService.findAll slipIds
 		def emails = new HashSet<String>()
 		Map map = new HashMap()
-		slips.collect { slip ->
+		slips.each { slip ->
 			slip.signature = signature
 			slip.hash = UUID.randomUUID().toString()
 			slip.complete = 1
-			def savedSlip = slipData.save slip
+			def savedSlip = slipService.save slip
 			map.put("slip", savedSlip)
 			emailService.send("test@test.com", slip.email, null, "Slip Accepted", "Slip Accepted", "mail/signed.ftl", map)
 			emails.add slip.email
 		}
+		updateMap()
 		attr.addFlashAttribute("emails", emails)
 		"redirect:/"
 	}
@@ -76,4 +77,22 @@ class SignatureController {
         model.addAttribute("signature", signatureService.findOne(id))
 		"signature/signatureView"
     }
+
+	def updateMap() {
+		def staticMap = ["http://maps.googleapis.com/maps/api/staticmap"]
+		staticMap.add "?center=40.039722,-76.304444&zoom=9&size=600x300&maptype=roadmap&scale=2"
+		def slips = slipService.findDeliveriesNoRepeat()
+		slips.eachWithIndex { slip, n ->
+			def color = "blue"
+			if (slip.complete == 1) {
+				color = "red"
+			}
+			staticMap.add "&markers=label:${n+1}|color:${color}|${slip.toString()}.pa" as String
+		}
+		def map = staticMap.join("").replaceAll("\\s+", "%20")
+		def image = new BufferedOutputStream(new FileOutputStream("tmp/map.png"))
+		image << new URL(map).openStream()
+		image.close()
+	}
 }
+

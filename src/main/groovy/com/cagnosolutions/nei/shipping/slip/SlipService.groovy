@@ -3,7 +3,7 @@ import groovy.transform.CompileStatic
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.PageRequest
-import org.springframework.data.domain.Sort
+import org.springframework.data.domain.Sort.Direction
 import org.springframework.stereotype.Service
 
 @CompileStatic
@@ -21,8 +21,8 @@ class SlipService {
 		repo.findAll slipIds
 	}
 
-    Page<Slip> findAll(int page, int size, String... fields) {
-        repo.findAll(new PageRequest(page, size, Sort.Direction.ASC, fields))
+    Page<Slip> findAll(int page, int size, Direction direction, String... fields) {
+        repo.findAll(new PageRequest(page, size, direction, fields))
     }
 
 	List<Slip> findAllValid() {
@@ -52,6 +52,14 @@ class SlipService {
     def delete(Slip slip) {
         repo.delete slip
     }
+
+	List<Slip> findDeliveriesNoRepeat() {
+		repo.findDeliveriesNoRepeat()
+	}
+
+	List<Slip> findDeliveries() {
+		repo.findDeliveries()
+	}
 
 	// helper method
 	static def mergeProperties(modified, original) {

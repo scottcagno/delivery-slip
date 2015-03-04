@@ -9,13 +9,13 @@
 		<#include "../stubs/navbar.ftl"/>
 
 		<!-- content -->
-		<div id="content" class="container">
+		<div id="content" class="container-fluid">
 
 			<!-- view all -->
-			<div class="col-sm-12">
-				<div class="panel panel-default">
-					<div class="panel-heading">Current Slips</div>
-					<div class="panel-body">
+			<div class="row">
+				<div class="col-xs-12">
+					<div class="panel panel-default">
+						<div class="panel-heading">Current Slips</div>
 						<#if slips.totalPages != 0>
 							<div id="pagenator" class="text-center">
 								<#assign isFirst = (slips.number + 1) == 1/>
@@ -38,7 +38,7 @@
 										<tr>
 											<th><a href="/secure/slip?page=${(RequestParameters.page)!}&sort=id">Id</a></th>
 											<th><a href="/secure/slip?page=${(RequestParameters.page)!}&sort=created">Created</a></th>
-											<th><a href="/secure/slip?page=${(RequestParameters.page)!}&sort=customer.company">Company</a></th>
+											<th><a href="/secure/slip?page=${(RequestParameters.page)!}&sort=customer">Company</a></th>
 											<th><a href="/secure/slip?page=${(RequestParameters.page)!}&sort=po">PO</a></th>
 											<th><a href="/secure/slip?page=${(RequestParameters.page)!}&sort=jobNumber">Job</a></th>
 											<th><a href="/secure/slip?page=${(RequestParameters.page)!}&sort=jobName">Job Name</a></th>
@@ -51,12 +51,12 @@
 										</tr>
 									</thead>
 									<tbody>
-	
+
 										<#list slips.content as slip>
 											<tr>
-												<td>${(slip.id)!}</td>
+												<td>${(slip.id?c)!}</td>
 												<td>${(slip.created)!}</td>
-												<td><a href="/secure/slip/${slip.id}">${(slip.customer)!}</a></td>
+												<td>${(slip.customer)!}</td>
 												<td>${(slip.po)!}</td>
 												<td>${('Job #' + slip.jobNumber?c)!}</td>
 												<td>${(slip.jobName)!}</td>
@@ -65,15 +65,13 @@
 												<td>${(slip.samples)!}</td>
 												<td>
 													<#if slip.signature??>
-														<a href="/secure/signature/${slip.signature.id}/view">${slip.signature.signedBy}</a>
+														<a href="/secure/signature/${slip.signature.id?c}/view">${slip.signature.signedBy}</a>
 													<#else/>
 														Not Signed
 													</#if>
 												</td>
-	
 												<td>
-													<a id="notes_${slip.id}" class="notes" href="#">Notes</a>
-													<span id="notes_${slip.id}" hidden="hidden">${slip.notes!}</span>
+													<a href="/secure/slip/${slip.id?c}">Edit</a>
 												</td>
 											</tr>
 										</#list>

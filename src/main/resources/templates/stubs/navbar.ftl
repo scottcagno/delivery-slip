@@ -11,7 +11,8 @@
         </div>
         <div class="collapse navbar-collapse navbar-ex1-collapse">
             <ul class="nav navbar-nav navbar-right">
-                <li><a href="/secure/slip"><i class="fa fa-truck"></i> Slips</a></li>
+				<li><a href="/secure/generate" id="map"><i class="fa fa-map-marker"></i> Start Map</a></li>
+				<li><a href="/secure/slip"><i class="fa fa-truck"></i> Slips</a></li>
                 <li><a href="/secure/signature"><i class="fa fa-file-o"></i> New Signature</a></li>
             </ul>
         </div>
