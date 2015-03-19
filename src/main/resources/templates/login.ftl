@@ -8,8 +8,6 @@
 
 		<#include "stubs/navbar.ftl"/>
 
-
-
         <!-- content -->
         <div class="jumbotron">
             <div class="container">
