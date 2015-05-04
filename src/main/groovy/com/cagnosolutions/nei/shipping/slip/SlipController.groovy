@@ -19,6 +19,7 @@ class SlipController {
     @Autowired
     SlipService slipService
 
+	// GET all slips ordered by >id
 	@RequestMapping(method = RequestMethod.GET)
 	String all(Model model, @RequestParam(required = false) Integer page, @RequestParam(required = false) String sort) {
 		def direction = (sort == "id" || sort == null || sort == "" || sort == "created") ? Direction.DESC : Direction.ASC
@@ -33,6 +34,7 @@ class SlipController {
 		"slip/slip"
 	}
 
+	// POST edit customer
     @RequestMapping(method = RequestMethod.POST)
     String edit(Slip slip, RedirectAttributes attr) {
 		def existingSlip = slipService.findOne slip.id
@@ -42,12 +44,14 @@ class SlipController {
         "redirect:/secure/slip"
     }
 
+	// GET one slip
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     String view(Model model, @PathVariable Integer id) {
         model.addAttribute("slip", slipService.findOne(id))
         "slip/edit"
     }
 
+	// POST delete one slip
     @RequestMapping(value = "/{id}", method = RequestMethod.POST)
     String delete(@PathVariable Integer id) {
         slipService.delete id

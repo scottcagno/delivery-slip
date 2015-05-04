@@ -14,19 +14,22 @@ class IndexController {
 
 	@Autowired
 	SlipService slipService
-	
+
+	// GET root
     @RequestMapping(value = "/", method = RequestMethod.GET)
     String index() {
         "index"
     }
-	
+
+	// GET slip customer view
 	@RequestMapping(value = "/slip/{hash}", method = RequestMethod.GET)
 	String slip(@PathVariable String hash, Model model) {
 		def slip = slipService.findOneByHash hash
 		model.addAttribute("slip", slip)
 		"slip/customerView"
 	}
-	
+
+	// GET signature customer view
 	@RequestMapping(value = "/sig/{hash}", method = RequestMethod.GET)
 	String signature(@PathVariable String hash, Model model) {
 		def slip = slipService.findOneByHash hash

@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping
 @Controller
 class Authentication {
 
+	// GET login page
 	@RequestMapping(value = "/login")
 	String login() {
 		"login"

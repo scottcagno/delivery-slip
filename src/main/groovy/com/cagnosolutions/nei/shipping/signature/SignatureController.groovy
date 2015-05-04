@@ -23,29 +23,33 @@ class SignatureController {
 
 	@Autowired
 	SlipService slipService
-	
+
 	@Autowired
 	EmailService emailService
 
+	// GET display sign page
 	@RequestMapping(method = RequestMethod.GET)
 	String view() {
 		"signature/signature"
 	}
 
+	// POST save signature
 	@RequestMapping(method = RequestMethod.POST)
 	String save(Signature signature) {
 		signature = signatureService.save signature
 		"redirect:/secure/signature/${signature.id}"
 	}
-	
+
+	// GET get all valid slips to add signature to
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
 	String selectSlip(Model model, @PathVariable Integer id) {
 		model.addAllAttributes([signature: signatureService.findOne(id), slips: slipService.findAllValid()])
 		"signature/signatureSlip"
 	}
 
+	// POST add signature to selected slips
 	@RequestMapping(value = "/{id}", method = RequestMethod.POST)
-	String addSlips(@PathVariable Integer id, @RequestParam(value = "slipIds", required = false) List<Integer> slipIds, 
+	String addSlips(@PathVariable Integer id, @RequestParam(value = "slipIds", required = false) List<Integer> slipIds,
 					RedirectAttributes attr, String signedBy) {
 		if (slipIds == null || slipIds.size() < 1) {
 			attr.addFlashAttribute("alertError", "No slips were selected")
@@ -72,12 +76,14 @@ class SignatureController {
 		"redirect:/"
 	}
 
+	// GET view signature
     @RequestMapping(value = "/{id}/view", method = RequestMethod.GET)
     String viewOne(@PathVariable Integer id, Model model) {
         model.addAttribute("signature", signatureService.findOne(id))
 		"signature/signatureView"
     }
 
+	// helper method to update map
 	def updateMap() {
 		def staticMap = ["http://maps.googleapis.com/maps/api/staticmap"]
 		staticMap.add "?center=40.039722,-76.304444&zoom=9&size=600x300&maptype=roadmap&scale=2"
