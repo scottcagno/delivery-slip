@@ -5,9 +5,9 @@ spring:
 
   datasource:
     driverClassName: com.mysql.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/neiexpress?createDatabaseIfNotExist=true
-    username: root
-    password: root
+    url: jdbc:mysql://localhost:3306/shipping_db?createDatabaseIfNotExist=true
+    username: nei
+    password: envnei9049
     maxActive: 150
     maxIdle: 10
     minIdle: 5
@@ -38,10 +38,6 @@ security:
 endpoints:
   shutdown:
     enabled: true
-
-http:
-  mappers:
-    jsonPrettyPrint: true
 
 mail:
   host: smtp.mandrillapp.com
