@@ -6,8 +6,8 @@ spring:
   datasource:
     driverClassName: com.mysql.jdbc.Driver
     url: jdbc:mysql://localhost:3306/shipping_db?createDatabaseIfNotExist=true
-    username: nei
-    password: envnei9049
+    username: root
+    password: root
     maxActive: 150
     maxIdle: 10
     minIdle: 5
