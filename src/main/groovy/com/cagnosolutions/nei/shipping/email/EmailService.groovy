@@ -17,7 +17,7 @@ import javax.ws.rs.core.MediaType
 class EmailService {
 
 	static String AUTH_KEY = "key-173701b40541299bd3b7d40c3ac6fd43"
-	static String BASE_URI = "https://api.mailgun.net/v2/mg.cagnosolutions.com"
+	static String BASE_URI = "https://api.mailgun.net/v3/mg.cagnosolutions.com"
 
 	ClientResponse send(String from, String to, String bcc, String subject, String text, String html) {
 		def client = Client.create()

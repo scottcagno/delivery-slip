@@ -68,7 +68,7 @@ class SignatureController {
 			slip.complete = 1
 			def savedSlip = slipService.save slip
 			map.put("slip", savedSlip)
-			emailService.send("test@test.com", slip.email, null, "Slip Accepted", "Slip Accepted", "mail/signed.ftl", map)
+			emailService.send("nei@envnei.com", slip.email, null, "Slip Accepted", "Slip Accepted", "mail/signed.ftl", map)
 			emails.add slip.email
 		}
 		updateMap()
