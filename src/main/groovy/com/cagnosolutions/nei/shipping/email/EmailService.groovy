@@ -1,7 +1,5 @@
 package com.cagnosolutions.nei.shipping.email
-
 import com.sun.jersey.api.client.Client
-import com.sun.jersey.api.client.ClientResponse
 import com.sun.jersey.api.client.filter.HTTPBasicAuthFilter
 import com.sun.jersey.core.util.MultivaluedMapImpl
 import freemarker.template.Configuration
@@ -19,7 +17,7 @@ class EmailService {
 	static String AUTH_KEY = "key-173701b40541299bd3b7d40c3ac6fd43"
 	static String BASE_URI = "https://api.mailgun.net/v3/mg.cagnosolutions.com"
 
-	ClientResponse send(String from, String to, String bcc, String subject, String text, String html) {
+	def send(String from, String to, String bcc, String subject, String text, String html) {
 		def client = Client.create()
 		def resource = client.resource BASE_URI + "/messages"
 		def data = new MultivaluedMapImpl()
@@ -39,7 +37,7 @@ class EmailService {
 		resource.type(MediaType.APPLICATION_FORM_URLENCODED).post(data)
 	}
 
-	ClientResponse send(String from, String to, String bcc, String subject, String text) {
+	def send(String from, String to, String bcc, String subject, String text) {
 		send from, to, bcc, subject, text, text
 	}
 
@@ -48,7 +46,7 @@ class EmailService {
 	@Autowired
 	Configuration config // template configuation class
 
-	ClientResponse send(String from, String to, String bcc, String subject, String text, String template, Map data) {
+	def send(String from, String to, String bcc, String subject, String text, String template, Map data) {
 		def body = FreeMarkerTemplateUtils.processTemplateIntoString config.getTemplate(template), data
 		send from, to, bcc, subject, text, body
 	}
